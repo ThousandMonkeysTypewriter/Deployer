@@ -6,7 +6,7 @@ JOL is a service that enables developers to quickly and easily load and implemen
 ## Main Features
 
 - division between ML models and runtime objects, help avoid mixing of functionality
-- change the model or switch frameworks while Java objects it remain unchanged
+- change the model or switch frameworks while Java objects it remain unchanged 
 - allows mixing of ML and standart logic inside Java objects
 
 ## Example
