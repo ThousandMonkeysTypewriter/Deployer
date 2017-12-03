@@ -49,4 +49,8 @@ From each review (text) we create Object, then feed it to model and label this i
 
 ### Image analyzis
 
--> dl4j-examples/dl4j-examples/src/main/java/org/deeplearning4j/examples/convolution/
+> dl4j-examples/dl4j-examples/src/main/java/org/deeplearning4j/examples/convolution/
+
+git update-index --assume-unchanged src/main/resources/images/model.zip
+git update-index --assume-unchanged src/main/resources/review/GoogleNews-vectors-negative300.bin.gz
+git update-index --assume-unchanged src/main/resources/review/dl4j_w2vSentiment/aclImdb_v1.tar.gz
