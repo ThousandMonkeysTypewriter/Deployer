@@ -4,11 +4,17 @@ import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.io.IOUtils;
+import org.datavec.api.io.filters.BalancedPathFilter;
+import org.datavec.api.io.labels.ParentPathLabelGenerator;
 import org.datavec.api.records.reader.RecordReader;
 import org.datavec.api.records.reader.impl.csv.CSVRecordReader;
 import org.datavec.api.split.FileSplit;
+import org.datavec.api.split.InputSplit;
 import org.datavec.api.util.ClassPathResource;
+import org.datavec.image.loader.NativeImageLoader;
+import org.datavec.image.recordreader.ImageRecordReader;
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
+import org.jol.objects.MLConf;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 
@@ -16,6 +22,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by Alex on 27/01/2017.
@@ -99,6 +106,29 @@ public class DataUtilities {
       return null;
     }
 
+  }
+
+  public static DataSet readImageFiles(File file, MLConf conf) throws IOException {
+    Random rng = new Random(conf.seed);
+    ParentPathLabelGenerator labelMaker = new ParentPathLabelGenerator();
+    
+    FileSplit fileSplit = new FileSplit(file, NativeImageLoader.ALLOWED_FORMATS, rng);
+    BalancedPathFilter pathFilter = new BalancedPathFilter(rng, new ParentPathLabelGenerator(), conf.numExamples, conf.numLabels, conf.batchSize);
+
+    /**
+     * Data Setup -> train test split
+     *  - inputSplit = define train and test split
+     **/
+    InputSplit[] inputSplit = fileSplit.sample(pathFilter, conf.splitTrainTest, 1 - conf.splitTrainTest);
+    InputSplit testData = inputSplit[1];
+    
+    ImageRecordReader recordReader = new ImageRecordReader(conf.height, conf.width, conf.channels, labelMaker);
+    recordReader.initialize(testData, null);
+    RecordReaderDataSetIterator dataIter = new RecordReaderDataSetIterator(recordReader, conf.batchSize, 1, conf.numLabels);
+    
+    // Example on how to get predict results with trained model. Result for first example in minibatch is printed
+    dataIter.reset();
+    return dataIter.next();
   }
 }
 

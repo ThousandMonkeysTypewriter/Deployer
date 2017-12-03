@@ -1,7 +1,5 @@
 package org.deeplearning4j.classifier.reviews;
 
-import java.util.Map;
-
 import org.jol.objects.MLItem;
 import org.jol.objects.MLModel;
 import org.nd4j.linalg.api.ndarray.INDArray;

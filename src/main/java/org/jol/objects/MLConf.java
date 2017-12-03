@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.deeplearning4j.nn.api.Model;
 import org.jol.objects.conf.BasicCSVClassifier;
 import org.jol.objects.conf.CSVClassifier;
+import org.jol.objects.conf.ImageClassifier;
 import org.jol.objects.conf.SentimentAnalyzer;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
   @JsonSubTypes.Type(value = BasicCSVClassifier.class, name = "BasicCSVClassifier"),
   @JsonSubTypes.Type(value = CSVClassifier.class, name = "CSVClassifier"),
+  @JsonSubTypes.Type(value = ImageClassifier.class, name = "ImageClassifier"),
   @JsonSubTypes.Type(value = SentimentAnalyzer.class, name = "SentimentAnalyzer") }
 )
 
@@ -56,6 +58,23 @@ public abstract class MLConf {
   public int vectorSize;
   public int truncateReviewsToLength;
   public String dataUrl;
+  
+  /**
+   * conf for image classifier
+   */
+  
+  public int height = 100;
+  public int width = 100;
+  public int channels = 3;
+  public int numExamples = 80;
+  public int numLabels = 4;
+  public int batchSize = 20;
+
+  public int listenerFreq = 1;
+  public int epochs = 1;
+  public double splitTrainTest = 0.8;
+
+  public String modelType = "AlexNet"; // LeNet, AlexNet or Custom but you need to fill it out
   
   /**
    * JACKSON polymorphism needs only empty constructor(???)

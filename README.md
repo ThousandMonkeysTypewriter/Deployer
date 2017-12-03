@@ -7,8 +7,8 @@ JOL is a service that enables developers to quickly and easily load and implemen
 
 - the division between ML models and runtime objects helps avoid mixing of functionality
 - change the model or switch frameworks while Java objects remain unchanged
-- allows mixing of ML and standard logic inside Java objects
 - no extensive knowledge of Machine Learning necessary to use, load or train models
+- allows using both ML and standard logic inside Java objects
 
 ## DL4J implementation examples
 Let's suppose your goal is to create a function that will sort out flowers. Suppose you have an ML model that can distinguish between different kind of flowers based on its description.
