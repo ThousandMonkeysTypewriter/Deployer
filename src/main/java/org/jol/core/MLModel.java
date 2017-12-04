@@ -1,4 +1,4 @@
-package org.jol.objects;
+package org.jol.core;
 
 import java.io.IOException;
 import java.util.Map;

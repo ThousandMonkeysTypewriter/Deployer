@@ -1,11 +1,11 @@
-package org.jol.objects.conf;
+package org.jol.dl4j.conf;
 
 import org.apache.commons.io.FileUtils;
-import org.deeplearning4j.classifier.reviews.SentimentExampleIterator;
 import org.deeplearning4j.eval.Evaluation;
 import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
 import org.deeplearning4j.utilities.DataUtilities;
+import org.deeplearning4j.utilities.SentimentExampleIterator;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
 import org.deeplearning4j.nn.api.Model;
@@ -15,7 +15,7 @@ import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
-import org.jol.objects.MLConf;
+import org.jol.core.MLConf;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;

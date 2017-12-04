@@ -1,12 +1,12 @@
-package org.jol.objects;
+package org.jol.core;
 
 import java.io.IOException;
 
 import org.deeplearning4j.nn.api.Model;
-import org.jol.objects.conf.BasicCSVClassifier;
-import org.jol.objects.conf.CSVClassifier;
-import org.jol.objects.conf.ImageClassifier;
-import org.jol.objects.conf.SentimentAnalyzer;
+import org.jol.dl4j.conf.BasicCSVClassifier;
+import org.jol.dl4j.conf.CSVClassifier;
+import org.jol.dl4j.conf.ImageClassifier;
+import org.jol.dl4j.conf.SentimentAnalyzer;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

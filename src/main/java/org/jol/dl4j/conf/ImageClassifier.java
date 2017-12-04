@@ -1,6 +1,6 @@
-package org.jol.objects.conf;
+package org.jol.dl4j.conf;
 
-import org.jol.objects.MLConf;
+import org.jol.core.MLConf;
 import org.datavec.api.io.filters.BalancedPathFilter;
 import org.datavec.api.io.labels.ParentPathLabelGenerator;
 import org.datavec.api.split.FileSplit;
@@ -37,6 +37,7 @@ import org.nd4j.linalg.dataset.api.preprocessor.DataNormalization;
 import org.nd4j.linalg.dataset.api.preprocessor.ImagePreProcessingScaler;
 import org.nd4j.linalg.learning.config.Nesterovs;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;

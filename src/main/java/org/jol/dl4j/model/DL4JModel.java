@@ -1,4 +1,4 @@
-package org.jol.objects.model;
+package org.jol.dl4j.model;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +10,8 @@ import org.deeplearning4j.nn.api.Model;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.util.ModelSerializer;
 import org.deeplearning4j.utilities.DataUtilities;
-import org.jol.objects.MLConf;
-import org.jol.objects.MLModel;
+import org.jol.core.MLConf;
+import org.jol.core.MLModel;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.preprocessor.DataNormalization;

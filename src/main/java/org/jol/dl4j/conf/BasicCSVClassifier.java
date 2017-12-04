@@ -1,4 +1,4 @@
-package org.jol.objects.conf;
+package org.jol.dl4j.conf;
 
 
 import java.io.File;
@@ -15,7 +15,7 @@ import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.deeplearning4j.utilities.DataUtilities;
-import org.jol.objects.MLConf;
+import org.jol.core.MLConf;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;

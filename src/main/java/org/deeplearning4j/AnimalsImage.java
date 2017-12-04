@@ -1,16 +1,16 @@
-package org.jol;
+package org.deeplearning4j;
 
 import org.apache.commons.io.FileUtils;
 import org.datavec.api.io.labels.ParentPathLabelGenerator;
 import org.datavec.api.util.ClassPathResource;
 import org.datavec.image.recordreader.BaseImageRecordReader;
 import org.datavec.image.recordreader.ImageRecordReader;
-import org.deeplearning4j.classifier.animals.Animal;
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
+import org.deeplearning4j.objects.Animal;
 import org.deeplearning4j.utilities.DataUtilities;
-import org.jol.objects.MLConf;
-import org.jol.objects.MLModel;
-import org.jol.objects.model.DL4JModel;
+import org.jol.core.MLConf;
+import org.jol.core.MLModel;
+import org.jol.dl4j.model.DL4JModel;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 

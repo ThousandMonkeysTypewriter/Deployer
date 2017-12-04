@@ -1,7 +1,7 @@
-package org.deeplearning4j.classifier.animals;
+package org.deeplearning4j.objects;
 
-import org.jol.objects.MLItem;
-import org.jol.objects.MLModel;
+import org.jol.core.MLItem;
+import org.jol.core.MLModel;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
 /*

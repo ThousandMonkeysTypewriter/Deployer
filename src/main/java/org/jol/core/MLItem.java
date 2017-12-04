@@ -1,4 +1,4 @@
-package org.jol.objects;
+package org.jol.core;
 
 import java.util.HashMap;
 import org.nd4j.linalg.api.ndarray.INDArray;
