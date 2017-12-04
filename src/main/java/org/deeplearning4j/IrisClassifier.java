@@ -56,7 +56,7 @@ public class IrisClassifier {
 
     //model inputs
     DataSet testData = DataUtilities.readCSVDataset(new ClassPathResource("/flowers/iris.txt").getFile(),
-        conf.batchSizeTest, conf.numInputs, conf.numOutputs);
+        200, conf.numInputs, conf.numOutputs);
 
     //labels for MLItems objects
     Map<Integer,String[]> data = DataUtilities.readEnumCSV(new ClassPathResource("/flowers/iris_data.txt").getFile());
@@ -64,7 +64,7 @@ public class IrisClassifier {
     MLModel model = new DL4JModel(conf);
 
     INDArray features = model.prepareFeatures(testData, true);
-
+;
     for (int i = 0; i < features.rows() ; i++) {
       INDArray slice = features.slice(i);
 

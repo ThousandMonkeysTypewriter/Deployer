@@ -26,6 +26,6 @@ public class Flower extends MLItem {
   }
 
   public String toString() {
-    return "sepal length: "+s_length+", sepal width: "+s_width+", petal length: "+p_length+", petal width: "+p_width;
+    return "sepal length: "+s_length+" sepal width: "+s_width+" petal length: "+p_length+" petal width: "+p_width + " label: "+getLabel();
   }
 }

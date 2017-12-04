@@ -15,21 +15,32 @@ JOL is a service that enables developers to quickly and easily load and implemen
 
 
 ## Example
-Let's suppose your goal is to create a function that will sort out flowers. Suppose you have an ML model that can distinguish between different kind of flowers based on its description.
+Let's suppose we have a document containing [description](https://github.com/nayname/JOL/blob/master/src/main/resources/flowers/iris.txt) of flowers and we want to terun [into into the list of ojects of the type Flower] (https://github.com/nayname/JOL/blob/master/src/main/java/org/deeplearning4j/IrisClassifier.java). This object will contain parameters from the document (sepal length, sepal width etc.) and a label - which type of flower that is. Tha label is not provided by the documnet so we will use our ML model to derive the flower's lable from it's parameters.
 
 First, we load saved and trained model using model configuration.
 
-Then,  we create features that will be fed to the model.
+`MLModel model = new MLModel(conf);`
 
-We create an object of type Flower using text parameters, model and features.
+Then, we load the document. Each row of the represents one flower. First row looks like this:
 
-Finally, we can add the Flower to the HashMap, using Flower's type as a key, and Flower object itself as a value;
+`5.1,3.5,1.4,0.2,0`
 
-Outup after bunch of flowers were created;
+Using that parameters and the model we create the object
+
+`Flower iris = new Flower(slice, model, data.get(i));`
+
+
+It will have the following fields
+
+`sepal length: 5.1 sepal width: 3.5 petal length: 1.4 petal width: 0.2 label: Iris Setosa`
+
+The label was predicted by the model
+
+Finally, after analyzing all the rows, we will have the HashMap consisting of 41 Iris Virginica, 59 Iris Versicolour, 50 Iris Setosa.
 
 ---
 
 
-[Deeplearning4J implementation examples](https://github.com/nayname/DL4J.md)
+[Deeplearning4J implementation examples](https://github.com/nayname/JOL/blob/master/DL4J.md)
 
-[Tensorflow implementation examples](https://github.com/nayname/JOL/TENSORFLOW.md)
+[Tensorflow implementation examples](https://github.com/nayname/JOL/blob/master/TENSORFLOW.md)
