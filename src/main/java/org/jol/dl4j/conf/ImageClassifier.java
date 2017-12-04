@@ -58,8 +58,8 @@ public class ImageClassifier extends MLConf {
      *  - pathFilter = define additional file load filter to limit size and balance batch content
      **/
     ParentPathLabelGenerator labelMaker = new ParentPathLabelGenerator();
-    System.out.println(System.getProperty("user.dir") + "======" + "dl4j-examples/src/main/resources/animals/");
-    File mainPath = new File(System.getProperty("user.dir"), "src/main/resources/animals/pics/");
+    System.out.println(System.getProperty("user.dir") + "======" + "src/main/resources/images/examples/");
+    File mainPath = new File(System.getProperty("user.dir"), "src/main/resources/images/examples/");
     FileSplit fileSplit = new FileSplit(mainPath, NativeImageLoader.ALLOWED_FORMATS, rng);
     BalancedPathFilter pathFilter = new BalancedPathFilter(rng, labelMaker, numExamples, numLabels, batchSize);
 

@@ -34,10 +34,8 @@ public class ImagesClassifier {
     if (args.length > 0 && args[0].equals("create")) 
       conf.create = true;
 
-    Map<String, ArrayList<Animal>> animals = new HashMap<String,ArrayList<Animal>>();
-    
     //model inputs
-    DataSet testData = DataUtilities.readImageFiles(new File(System.getProperty("user.dir"), "src/main/resources/animals/pics/"),
+    DataSet testData = DataUtilities.readImageFiles(new File(System.getProperty("user.dir"), "src/main/resources/images/examples/"),
         conf);
         
     //labels for MLItems objects
