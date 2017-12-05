@@ -15,7 +15,7 @@ JOL is a service that enables developers to quickly and easily load and implemen
 
 
 ## Example
-Let's suppose we have a document containing [description](https://github.com/nayname/JOL/blob/master/src/main/resources/flowers/iris.txt) of flowers and we want to turn it [into the list of ojects of the type Flower](https://github.com/nayname/JOL/blob/master/src/main/java/org/deeplearning4j/IrisClassifier.java). This object will contain parameters from the document (sepal length, sepal width etc.) and a label - which type of flower that is. The label is not provided by the documnet so we will use our ML model to derive the flower's lable from it's parameters.
+Let's suppose we have a document containing [description](https://github.com/nayname/JOL/blob/master/src/main/resources/flowers/iris.txt) of flowers and we want to turn it [into the list of objects of the type Flower](https://github.com/nayname/JOL/blob/master/src/main/java/org/deeplearning4j/IrisClassifier.java). This object will contain parameters from the document (sepal length, sepal width etc.) and a label - which type of flower that is. The label is not provided by the documnet so we will use our ML model to derive the flower's lable from it's parameters.
 
 First, we load saved and trained model using model configuration.
 
@@ -38,9 +38,8 @@ The label was predicted by the model
 
 Finally, after analyzing all the rows, we will have the HashMap consisting of 41 Iris Virginica, 59 Iris Versicolour, 50 Iris Setosa. We can use these objectes later in our programm.
 
+For more info about the library structure please checkout out the [javadoc](https://nayname.github.io/javadoc/org/jol/core/package-summary.html)
 ---
 
 
 [Deeplearning4J implementation examples](https://github.com/nayname/JOL/blob/master/DL4J.md)
-
-[Tensorflow implementation examples](https://github.com/nayname/JOL/blob/master/TENSORFLOW.md)

@@ -13,7 +13,6 @@ import org.nd4j.linalg.dataset.DataSet;
  * Item -> MLItem -> MLMolde -> Framework Model
  * 
  * @author  Fedor Soprunov
- * @see     Animal
  */
 
 public interface MLModel {
