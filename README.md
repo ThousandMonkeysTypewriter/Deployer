@@ -38,7 +38,8 @@ The label was predicted by the model
 
 Finally, after analyzing all the rows, we will have the HashMap consisting of 41 Iris Virginica, 59 Iris Versicolour, 50 Iris Setosa. We can use these objectes later in our programm.
 
-For more info about the library structure please checkout out the [javadoc](https://nayname.github.io/javadoc/org/jol/core/package-summary.html)
+For more info about the library structure please checkout out this [javadoc](https://nayname.github.io/javadoc/org/jol/core/package-summary.html)
+
 ---
 
 
