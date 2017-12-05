@@ -15,6 +15,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import org.jol.dl4j.conf.BasicCSVClassifier;
+
+/**
+ * Returns the data which is necessary for loading and using Model. Deserializes a data from JSON.
+ * Needs JsonSubTypes - type of configuration and model that will be loaded
+ * 
+ * @author  Fedor Soprunov
+ * @see     BasicCSVClassifier
+ */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 @JsonSubTypes({
@@ -22,47 +32,56 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
   @JsonSubTypes.Type(value = CSVClassifier.class, name = "CSVClassifier"),
   @JsonSubTypes.Type(value = ImageClassifier.class, name = "ImageClassifier"),
   @JsonSubTypes.Type(value = SentimentAnalyzer.class, name = "SentimentAnalyzer") }
-)
+    )
 
 public abstract class MLConf {
 
-  /**
-   * conf for restoring
-   */
   public boolean create = false;
-  public String dataPath;
-  public boolean save = false;
-  public String modelLocation;
-  public String classifier;
-  
   /**
-   * conf for training common
+   * Path to the model storage
+   */
+  public String dataPath, modelLocation;
+  /**
+   * Possible output labels
+   */
+  public String classifier;
+
+  /**
+   * Conf for training common
    */
   public static Logger log = LoggerFactory.getLogger(MLConf.class);
   public int nEpochs;
-  public int numInputs; //5 values in each row of the animals.csv CSV: 4 input features followed by an integer label (class) index. Labels are the 5th value (index 4) in each row
-  public int numOutputs; //3 classes (types of animals) in the animals data set. Classes have integer values 0, 1 or 2
 
-  public int batchSizeTraining;    //Iris data set: 150 examples total. We are loading all of them into one DataSet (not recommended for large data sets)
-  //this is the data we want to classify
+  /**
+   * 5 values in each row of the animals.csv CSV: 4 input features followed by an integer label (class) index. Labels are the 5th value (index 4) in each row
+   */
+  public int numInputs; 
+  /**
+   * 3 classes (types of animals) in the animals data set. Classes have integer values 0, 1 or 2
+   */
+  public int numOutputs; 
+  /**
+   * Iris data set: 150 examples total. We are loading all of them into one DataSet (not recommended for large data sets)
+   */
+  public int batchSizeTraining;    
   public int batchSizeTest;
-  
+
   public int seed;
   public int iterations;
   public double testTrainSplit;
-  
+
   /**
-   * conf for training datavec
+   * Conf for training datavec
    */
   public String wordVectorsPath;
   public int vectorSize;
   public int truncateReviewsToLength;
   public String dataUrl;
-  
+
   /**
-   * conf for image classifier
+   * Conf for image classifier
    */
-  
+
   public int height = 100;
   public int width = 100;
   public int channels = 3;
@@ -74,17 +93,26 @@ public abstract class MLConf {
   public int epochs = 1;
   public double splitTrainTest = 0.8;
 
-  public String modelType = "AlexNet"; // LeNet, AlexNet or Custom but you need to fill it out
-  
+  public String modelType = "AlexNet"; 
+
   /**
    * JACKSON polymorphism needs only empty constructor(???)
    */
   public abstract void init();
 
+  /**
+   * Create trained model
+   */
   public abstract Model train (MLConf global_conf) throws Exception;
-  
+
+  /**
+   * Get label num
+   */
   public abstract int getIndex (INDArray output);
 
+  /**
+   * Featurize string
+   */
   public abstract INDArray prepareFeatures(String input) throws IOException, InterruptedException;
 }
 

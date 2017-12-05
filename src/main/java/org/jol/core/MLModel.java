@@ -7,6 +7,15 @@ import org.deeplearning4j.nn.api.Model;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 
+/**
+ * Interface between Java objects and different frameworks models </br>
+ * 
+ * Item -> MLItem -> MLMolde -> Framework Model
+ * 
+ * @author  Fedor Soprunov
+ * @see     Animal
+ */
+
 public interface MLModel {
 
   void saveToDisk() throws IOException;
@@ -14,8 +23,6 @@ public interface MLModel {
   void restore(String modelLocation) throws IOException;
   
   void fitNormalizer(DataSet input);
-
-//  void normalize (INDArray slice);
 
   INDArray prepareFeatures(String input) throws IOException, InterruptedException;
   
@@ -29,7 +36,5 @@ public interface MLModel {
 
   INDArray output(INDArray features);
 
-//  String eval() throws IOException;
-  
   void trainModel() throws Exception;
 }
