@@ -15,7 +15,7 @@ JOL is a service that enables developers to quickly and easily load and implemen
 
 
 ## Example
-Let's suppose we have a document containing [description](https://github.com/nayname/JOL/blob/master/src/main/resources/flowers/iris.txt) of flowers and we want to terun [into into the list of ojects of the type Flower] (https://github.com/nayname/JOL/blob/master/src/main/java/org/deeplearning4j/IrisClassifier.java). This object will contain parameters from the document (sepal length, sepal width etc.) and a label - which type of flower that is. Tha label is not provided by the documnet so we will use our ML model to derive the flower's lable from it's parameters.
+Let's suppose we have a document containing [description](https://github.com/nayname/JOL/blob/master/src/main/resources/flowers/iris.txt) of flowers and we want to terun [into into the list of ojects of the type Flower](https://github.com/nayname/JOL/blob/master/src/main/java/org/deeplearning4j/IrisClassifier.java). This object will contain parameters from the document (sepal length, sepal width etc.) and a label - which type of flower that is. The label is not provided by the documnet so we will use our ML model to derive the flower's lable from it's parameters.
 
 First, we load saved and trained model using model configuration.
 
@@ -25,7 +25,7 @@ Then, we load the document. Each row of the represents one flower. First row loo
 
 `5.1,3.5,1.4,0.2,0`
 
-Using that parameters and the model we create the object
+Using the model, model features and parameters we create new Flower
 
 `Flower iris = new Flower(slice, model, data.get(i));`
 
@@ -36,7 +36,7 @@ It will have the following fields
 
 The label was predicted by the model
 
-Finally, after analyzing all the rows, we will have the HashMap consisting of 41 Iris Virginica, 59 Iris Versicolour, 50 Iris Setosa.
+Finally, after analyzing all the rows, we will have the HashMap consisting of 41 Iris Virginica, 59 Iris Versicolour, 50 Iris Setosa. We can use these objectes later in our programm.
 
 ---
 
