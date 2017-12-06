@@ -1,6 +1,7 @@
 package org.deeplearning4j;
 
 import org.apache.commons.io.FileUtils;
+import org.datavec.api.util.ClassPathResource;
 import org.deeplearning4j.objects.Review;
 import org.jol.core.MLConf;
 import org.jol.core.MLItem;
@@ -22,14 +23,14 @@ public class ReviewsFeeder {
     ObjectMapper objectMapper = new ObjectMapper();
 
     MLConf conf = objectMapper.readValue(FileUtils.readFileToString(
-        new File("/root/JOL/src/main/resources/review/sentiment_model_conf.json")), MLConf.class);
+        new ClassPathResource("review/sentiment_model_conf.json").getFile()), MLConf.class);
     
     if (args.length > 0 && args[0].equals("create")) 
       conf.create = true;
 
     MLModel model = new DL4JModel(conf);
 
-    File[] files = new File(conf.dataPath+"aclImdb/test/neg/").listFiles();
+    File[] files = new File(conf.dataPathAbsolute+"aclImdb/test/neg/").listFiles();
 
     String text = FileUtils.readFileToString(files[1]);
 	

@@ -23,7 +23,7 @@ public class AnimalsClassifier {
     ObjectMapper objectMapper = new ObjectMapper();
 
     MLConf conf = objectMapper.readValue(FileUtils.readFileToString(
-        new File("/root/JOL/src/main/resources/animals/animals_model_conf.json")), MLConf.class);
+        new ClassPathResource("/animals/animals_model_conf.json").getFile()), MLConf.class);
 
     if (args.length > 0 && args[0].equals("create")) 
       conf.create = true;

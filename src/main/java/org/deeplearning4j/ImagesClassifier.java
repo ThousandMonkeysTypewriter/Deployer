@@ -7,7 +7,9 @@ import org.datavec.image.recordreader.BaseImageRecordReader;
 import org.datavec.image.recordreader.ImageRecordReader;
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
 import org.deeplearning4j.objects.Animal;
+import org.deeplearning4j.objects.Image;
 import org.deeplearning4j.objects.Review;
+import org.deeplearning4j.utilities.DataBind;
 import org.deeplearning4j.utilities.DataUtilities;
 import org.jol.core.MLConf;
 import org.jol.core.MLModel;
@@ -29,36 +31,18 @@ public class ImagesClassifier {
     ObjectMapper objectMapper = new ObjectMapper();
 
     MLConf conf = objectMapper.readValue(FileUtils.readFileToString(
-        new File("/root/JOL/src/main/resources/images/images_model_conf.json")), MLConf.class);
+        new ClassPathResource("/images/images_model_conf.json").getFile()), MLConf.class);
 
     if (args.length > 0 && args[0].equals("create")) 
       conf.create = true;
 
-    //model inputs
-    DataSet testData = DataUtilities.readImageFiles(new File(System.getProperty("user.dir"), "src/main/resources/images/examples/"),
-        conf);
-        
-    //labels for MLItems objects
-    Map<Integer,String[]> data = DataUtilities.readEnumCSV(new ClassPathResource("/animals/DataExamples/animals/animals_labels.csv").getFile());
-
     MLModel model = new DL4JModel(conf);
+    
+    //model inputs and data
+    DataBind testDataBind = DataUtilities.readImageFiles(new File(System.getProperty("user.dir"), "src/main/resources/images/examples/"),
+        conf);
 
-//    INDArray features = model.prepareFeatures(testData, true);
-//
-//    for (int i = 0; i < features.rows() ; i++) {
-//      INDArray slice = features.slice(i);
-//
-//      Animal animal = new Animal(slice, model, data.get(i));
-//      
-//      String label = animal.getLabel();
-//      if (!animals.containsKey(label))
-//        animals.put(label, new ArrayList<>());
-//
-//      animals.get(label).add(animal);
-//    } 
-//    
-//    System.err.println(animals);
-    Review review = new Review(testData.getFeatures(), model, "");
-    System.out.print(review);
+    Image img = new Image(testDataBind.getDataSet().getFeatures(), model, testDataBind.getPath(0));
+    System.out.print(img);
   }
 }

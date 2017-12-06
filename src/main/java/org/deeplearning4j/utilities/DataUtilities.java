@@ -19,6 +19,7 @@ import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 
 import java.io.*;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,12 +109,12 @@ public class DataUtilities {
 
   }
 
-  public static DataSet readImageFiles(File file, MLConf conf) throws IOException {
+  public static DataBind readImageFiles(File file, MLConf conf) throws IOException {
     Random rng = new Random(conf.seed);
     ParentPathLabelGenerator labelMaker = new ParentPathLabelGenerator();
     
     FileSplit fileSplit = new FileSplit(file, NativeImageLoader.ALLOWED_FORMATS, rng);
-    BalancedPathFilter pathFilter = new BalancedPathFilter(rng, new ParentPathLabelGenerator(), conf.numExamples, conf.numLabels, conf.batchSize);
+    BalancedPathFilter pathFilter = new BalancedPathFilter(rng, new ParentPathLabelGenerator(), conf.numExamples, conf.numOutputs, conf.batchSizeTest);
 
     /**
      * Data Setup -> train test split
@@ -124,11 +125,10 @@ public class DataUtilities {
     
     ImageRecordReader recordReader = new ImageRecordReader(conf.height, conf.width, conf.channels, labelMaker);
     recordReader.initialize(testData, null);
-    RecordReaderDataSetIterator dataIter = new RecordReaderDataSetIterator(recordReader, conf.batchSize, 1, conf.numLabels);
+    RecordReaderDataSetIterator dataIter = new RecordReaderDataSetIterator(recordReader, conf.batchSizeTest, 1, conf.numOutputs);
     
-    // Example on how to get predict results with trained model. Result for first example in minibatch is printed
-    dataIter.reset();
-    return dataIter.next();
+
+    return new DataBind(dataIter, testData.locations());
   }
 }
 

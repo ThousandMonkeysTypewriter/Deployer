@@ -1,6 +1,7 @@
 package org.jol.dl4j.conf;
 
 import org.apache.commons.io.FileUtils;
+import org.datavec.api.util.ClassPathResource;
 import org.deeplearning4j.eval.Evaluation;
 import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
 import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFactory;
@@ -37,8 +38,11 @@ public class SentimentAnalyzer extends MLConf {
   public SentimentAnalyzer() {
   }
   
-  public void init() {
-    wvs = WordVectorSerializer.loadStaticModel(new File(wordVectorsPath));
+  public void init() throws Exception {
+    wvs = WordVectorSerializer.loadStaticModel(new ClassPathResource(wordVectorsPath).getFile());
+
+    dataPathAbsolute = new ClassPathResource(dataPathLocal).getFile().getAbsolutePath();
+    modelLocationAbsolute = new ClassPathResource(modelLocationLocal).getFile().getAbsolutePath();
 
     tokenizerFactory = new DefaultTokenizerFactory();
     tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
@@ -97,9 +101,9 @@ public class SentimentAnalyzer extends MLConf {
 
     //DataSetIterators for training and testing respectively
     WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(wordVectorsPath));
-    System.err.println(global_conf.dataPath+", "+wordVectors+", "+batchSizeTraining+", "+truncateReviewsToLength);
-    SentimentExampleIterator train = new SentimentExampleIterator(global_conf.dataPath, wordVectors, batchSizeTraining, truncateReviewsToLength, true);
-    SentimentExampleIterator test = new SentimentExampleIterator(global_conf.dataPath, wordVectors, batchSizeTest, truncateReviewsToLength, false);
+    System.err.println(global_conf.dataPathAbsolute+", "+wordVectors+", "+batchSizeTraining+", "+truncateReviewsToLength);
+    SentimentExampleIterator train = new SentimentExampleIterator(global_conf.dataPathAbsolute, wordVectors, batchSizeTraining, truncateReviewsToLength, true);
+    SentimentExampleIterator test = new SentimentExampleIterator(global_conf.dataPathAbsolute, wordVectors, batchSizeTest, truncateReviewsToLength, false);
 
     //Set up network configuration
     MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
@@ -136,13 +140,13 @@ public class SentimentAnalyzer extends MLConf {
 
   public void downloadData(MLConf global_conf) throws Exception {
     //Create directory if required
-    File directory = new File(global_conf.dataPath);
+    File directory = new File(global_conf.dataPathAbsolute);
     if(!directory.exists()) directory.mkdir();
 
     //Download file:
-    String archizePath = global_conf.dataPath + "aclImdb_v1.tar.gz";
+    String archizePath = global_conf.dataPathAbsolute + "aclImdb_v1.tar.gz";
     File archiveFile = new File(archizePath);
-    String extractedPath = global_conf.dataPath + "aclImdb";
+    String extractedPath = global_conf.dataPathAbsolute + "aclImdb";
     File extractedFile = new File(extractedPath);
 
     if( !archiveFile.exists() ){
@@ -150,13 +154,13 @@ public class SentimentAnalyzer extends MLConf {
       FileUtils.copyURLToFile(new URL(dataUrl), archiveFile);
       System.out.println("Data (.tar.gz file) downloaded to " + archiveFile.getAbsolutePath());
       //Extract tar.gz file to output directory
-      DataUtilities.extractTarGz(archizePath, global_conf.dataPath);
+      DataUtilities.extractTarGz(archizePath, global_conf.dataPathAbsolute);
     } else {
       //Assume if archive (.tar.gz) exists, then data has already been extracted
       System.out.println("Data (.tar.gz file) already exists at " + archiveFile.getAbsolutePath());
       if( !extractedFile.exists()){
         //Extract tar.gz file to output directory
-        DataUtilities.extractTarGz(archizePath, global_conf.dataPath);
+        DataUtilities.extractTarGz(archizePath, global_conf.dataPathAbsolute);
       } else {
         System.out.println("Data (extracted) already exists at " + extractedFile.getAbsolutePath());
       }

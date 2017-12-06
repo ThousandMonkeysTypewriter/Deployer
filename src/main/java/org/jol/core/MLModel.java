@@ -17,20 +17,54 @@ import org.nd4j.linalg.dataset.DataSet;
 
 public interface MLModel {
 
+  /**
+   * Save model to the path taken from the configuration
+   * 
+   * @throws IOException
+   */
   void saveToDisk() throws IOException;
   
+  /**
+   * Activate instance from the file 
+   * 
+   * @param modelLocation
+   * @throws IOException
+   */
   void restore(String modelLocation) throws IOException;
   
   void fitNormalizer(DataSet input);
 
+  /**
+   * Featurize from the input
+   * 
+   * @param input
+   * @return
+   * @throws IOException
+   * @throws InterruptedException
+   */
   INDArray prepareFeatures(String input) throws IOException, InterruptedException;
   
+  /**
+   * Featurize from the input
+   * 
+   * @param test    input Dataset
+   * @param normalize
+   * @return
+   * @throws IOException
+   * @throws InterruptedException
+   */
   INDArray prepareFeatures(DataSet test, boolean normalize) throws IOException, InterruptedException;
 
   Map<Integer, String> getLabels();
   
   Model getModel();
   
+  /**
+   * takes MLItems's input
+   * 
+   * @param output
+   * @return
+   */
   String getLabel(INDArray output);
 
   INDArray output(INDArray features);

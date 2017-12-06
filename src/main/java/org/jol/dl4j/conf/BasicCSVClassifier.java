@@ -28,9 +28,6 @@ public class BasicCSVClassifier extends MLConf {
   public BasicCSVClassifier() {
   }
   
-  public void init() {
-  }
-
 //  public BasicCSVClassifier (String dataPath_, String modelLocation_, Boolean save_, int batchSizeTraining_,
 //      int batchSizeTest_, int numInputs_, int numOutputs_, int nEpochs_, String classifier_) {
 //    this.dataPath = dataPath_;

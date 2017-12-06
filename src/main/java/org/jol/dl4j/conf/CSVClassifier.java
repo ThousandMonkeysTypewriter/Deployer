@@ -36,9 +36,6 @@ public class CSVClassifier extends MLConf {
 
   public CSVClassifier() {
   }
-  
-  public void init() {
-  }
 
   public Model train (MLConf global_conf) throws Exception {
 
@@ -46,7 +43,7 @@ public class CSVClassifier extends MLConf {
     int numLinesToSkip = 0;
     char delimiter = ',';
     RecordReader recordReader = new CSVRecordReader(numLinesToSkip,delimiter);
-    recordReader.initialize(new FileSplit(new File(dataPath)));
+    recordReader.initialize(new FileSplit(new File(dataPathAbsolute)));
 
     DataSetIterator iterator = new RecordReaderDataSetIterator(recordReader,batchSizeTraining,numInputs,numOutputs);
     DataSet allData = iterator.next();
@@ -91,51 +88,51 @@ public class CSVClassifier extends MLConf {
     Evaluation eval = new Evaluation(3);
     INDArray output = model.output(testData.getFeatureMatrix());
     eval.eval(testData.getLabels(), output);
-    
+
     return model;
   }
 
   public INDArray prepareFeatures(String input) throws IOException,
-      InterruptedException {
+  InterruptedException {
     // TODO Auto-generated method stub
     return null;
   }
 
-   public int getIndex(INDArray output) {
-      return maxIndex(getFloatArrayFromSlice(output));
+  public int getIndex(INDArray output) {
+    return maxIndex(getFloatArrayFromSlice(output));
+  }
+
+  /**
+   * This method is to show how to convert the INDArray to a float array. This is to
+   * provide some more examples on how to convert INDArray to types that are more java
+   * centric.
+   *
+   * @param rowSlice
+   * @return
+   */
+  public static float[] getFloatArrayFromSlice(INDArray rowSlice){
+    float[] result = new float[rowSlice.columns()];
+    for (int i = 0; i < rowSlice.columns(); i++) {
+      result[i] = rowSlice.getFloat(i);
     }
-  
-    /**
-     * This method is to show how to convert the INDArray to a float array. This is to
-     * provide some more examples on how to convert INDArray to types that are more java
-     * centric.
-     *
-     * @param rowSlice
-     * @return
-     */
-    public static float[] getFloatArrayFromSlice(INDArray rowSlice){
-      float[] result = new float[rowSlice.columns()];
-      for (int i = 0; i < rowSlice.columns(); i++) {
-        result[i] = rowSlice.getFloat(i);
+    return result;
+  }
+
+  /**
+   * find the maximum item index. This is used when the data is fitted and we
+   * want to determine which class to assign the test row to
+   *
+   * @param vals
+   * @return
+   */
+  public static int maxIndex(float[] vals){
+    int maxIndex = 0;
+    for (int i = 1; i < vals.length; i++){
+      float newnumber = vals[i];
+      if ((newnumber > vals[maxIndex])){
+        maxIndex = i;
       }
-      return result;
     }
-  
-    /**
-     * find the maximum item index. This is used when the data is fitted and we
-     * want to determine which class to assign the test row to
-     *
-     * @param vals
-     * @return
-     */
-    public static int maxIndex(float[] vals){
-      int maxIndex = 0;
-      for (int i = 1; i < vals.length; i++){
-        float newnumber = vals[i];
-        if ((newnumber > vals[maxIndex])){
-          maxIndex = i;
-        }
-      }
-      return maxIndex;
-    }
+    return maxIndex;
+  }
 }

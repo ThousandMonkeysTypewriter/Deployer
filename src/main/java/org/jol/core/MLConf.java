@@ -1,7 +1,9 @@
 package org.jol.core;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.datavec.api.util.ClassPathResource;
 import org.deeplearning4j.nn.api.Model;
 import org.jol.dl4j.conf.BasicCSVClassifier;
 import org.jol.dl4j.conf.CSVClassifier;
@@ -40,7 +42,7 @@ public abstract class MLConf {
   /**
    * Path to the model storage
    */
-  public String dataPath, modelLocation;
+  public String dataPathLocal, modelLocationLocal, dataPathAbsolute, modelLocationAbsolute;
   /**
    * Possible output labels
    */
@@ -82,23 +84,27 @@ public abstract class MLConf {
    * Conf for image classifier
    */
 
-  public int height = 100;
-  public int width = 100;
-  public int channels = 3;
-  public int numExamples = 80;
-  public int numLabels = 4;
-  public int batchSize = 20;
+  public int height;
+  public int width;
+  public int channels;
+  public int numExamples;
 
-  public int listenerFreq = 1;
-  public int epochs = 1;
-  public double splitTrainTest = 0.8;
+  public int listenerFreq;
+  public double splitTrainTest;
 
-  public String modelType = "AlexNet"; 
+  public String modelType; 
 
   /**
    * JACKSON polymorphism needs only empty constructor(???)
+   * @throws Exception 
    */
-  public abstract void init();
+  public void init() throws Exception {
+    if ( dataPathLocal != null )
+      dataPathAbsolute = new ClassPathResource(dataPathLocal).getFile().getAbsolutePath();
+    
+    modelLocationAbsolute = new ClassPathResource(modelLocationLocal).getFile().getAbsolutePath();
+    System.err.println("#");
+  }
 
   /**
    * Create trained model

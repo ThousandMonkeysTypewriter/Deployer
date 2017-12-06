@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.datavec.api.util.ClassPathResource;
 import org.deeplearning4j.nn.api.Model;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.util.ModelSerializer;
@@ -35,9 +36,9 @@ public class DL4JModel implements MLModel {
       saveToDisk();
     }
     else 
-      restore(conf.modelLocation);
+      restore(conf.modelLocationAbsolute);
 
-    for ( Entry<Integer, String[]> l : DataUtilities.readEnumCSV(new File(conf.classifier)).entrySet() ) {
+    for ( Entry<Integer, String[]> l : DataUtilities.readEnumCSV(new ClassPathResource(conf.classifier).getFile()).entrySet() ) {
       labels.put(l.getKey(), l.getValue()[1]);
     }
   }
@@ -49,10 +50,6 @@ public class DL4JModel implements MLModel {
   public void trainModel() throws Exception {
     model = (MultiLayerNetwork)conf.train(conf);
   }
-
-  //  public void normalize(INDArray slice) {
-  //    normalizer.transform(slice);
-  //  }
 
   public Map<Integer, String> getLabels() {
     return labels;
@@ -67,7 +64,7 @@ public class DL4JModel implements MLModel {
   }
 
   public void saveToDisk() throws IOException {
-    ModelSerializer.writeModel(model, conf.modelLocation, true);
+    ModelSerializer.writeModel(model, conf.modelLocationAbsolute, true);
   }
 
   public INDArray output(INDArray features) {
@@ -91,16 +88,6 @@ public class DL4JModel implements MLModel {
   public void fitNormalizer(DataSet input) {
     normalizer.fit(input);
   }
-
-  //  public Evaluation evaluate(SentimentExampleIterator test) {
-  //    return model.evaluate(test);
-  //  }
-
-  //  public String eval() throws IOException {
-  //    SentimentExampleIterator test = new SentimentExampleIterator(conf.dataPath, wvs, conf.batchSize, conf.truncateReviewsToLength, false);
-  //    Evaluation evaluation = model.evaluate(test);
-  //    return evaluation.stats();
-  //  }
 }
 
 
