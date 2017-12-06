@@ -43,4 +43,22 @@ For more info about the library structure please checkout out this [JavaDoc](htt
 ---
 
 
+## Build and Run
+
+Use [Maven](https://maven.apache.org/) to build the examples.
+
+```
+mvn clean package
+```
+The simplest way to  run an example is to call Java with following inputs:
+
+ - Path the JAR  
+ - Chosen example's class as a main class
+
+```
+java -cp .:target/JOL-0.9.1-bin.jar org.deeplearning4j.ImagesClassifier
+```
+
+---
+
 [Deeplearning4J implementation examples](https://github.com/nayname/JOL/blob/master/DL4J.md)
