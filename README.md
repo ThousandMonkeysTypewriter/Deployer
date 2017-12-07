@@ -16,7 +16,7 @@ JOL is a service that enables developers to quickly and easily load and implemen
 
 
 ## Example
-![Iris example](https://nayname.github.io/diagram.png)
+![Iris example](https://nayname.github.io/diagram.jpg)
 
 Let's suppose we have a document containing [description](https://github.com/nayname/JOL/blob/master/src/main/resources/flowers/iris.txt) of flowers and we want to turn it [into the list of objects of the type Flower](https://github.com/nayname/JOL/blob/master/src/main/java/org/deeplearning4j/IrisClassifier.java). This object will contain parameters from the document (sepal length, sepal width, etc.) and a label - which type of flower that is. The label is not provided by the document so we will use our ML model to derive the flower's label from it's parameters.
 
