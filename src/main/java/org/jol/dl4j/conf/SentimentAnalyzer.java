@@ -39,15 +39,18 @@ public class SentimentAnalyzer extends MLConf {
   }
   
   public void init() throws Exception {
-    wvs = WordVectorSerializer.loadStaticModel(new ClassPathResource(wordVectorsPath).getFile());
+	if (new File(wordVectorsPath).exists())
+      wvs = WordVectorSerializer.loadStaticModel(new File(wordVectorsPath));
+    else 
+	  throw new RuntimeException("wordVectorsPath file not found in "+wordVectorsPath);
 
-    dataPathAbsolute = new ClassPathResource(dataPathLocal).getFile().getAbsolutePath();
+    if (!new File(dataPathAbsolute).exists())
+	  throw new RuntimeException("dataPathAbsolute dir not found in "+dataPathAbsolute);
+
     modelLocationAbsolute = new ClassPathResource(modelLocationLocal).getFile().getAbsolutePath();
-
+	
     tokenizerFactory = new DefaultTokenizerFactory();
     tokenizerFactory.setTokenPreProcessor(new CommonPreprocessor());
-    
-    System.err.println(classifier);
   }
   
 //  public SentimentAnalyzer (String dataPath_, String modelLocation_, String wordVectorsPath_, Boolean save_, int batchSize,
@@ -100,7 +103,7 @@ public class SentimentAnalyzer extends MLConf {
 
 
     //DataSetIterators for training and testing respectively
-    WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new File(wordVectorsPath));
+    WordVectors wordVectors = WordVectorSerializer.loadStaticModel(new ClassPathResource(wordVectorsPath).getFile());
     System.err.println(global_conf.dataPathAbsolute+", "+wordVectors+", "+batchSizeTraining+", "+truncateReviewsToLength);
     SentimentExampleIterator train = new SentimentExampleIterator(global_conf.dataPathAbsolute, wordVectors, batchSizeTraining, truncateReviewsToLength, true);
     SentimentExampleIterator test = new SentimentExampleIterator(global_conf.dataPathAbsolute, wordVectors, batchSizeTest, truncateReviewsToLength, false);

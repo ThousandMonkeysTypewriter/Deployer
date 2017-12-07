@@ -54,11 +54,11 @@ public class BasicCSVClassifier extends MLConf {
 
   public Model train (MLConf global_conf) throws Exception {
     DataSet trainingData = DataUtilities.readCSVDataset(
-        new ClassPathResource("/DataExamples/animals/animals_train.csv").getFile(),
+        new ClassPathResource("/animals/DataExamples/animals/animals_train.csv").getFile(),
         global_conf.batchSizeTraining, global_conf.numInputs, global_conf.numOutputs);
 
 
-    DataSet testData = DataUtilities.readCSVDataset(new ClassPathResource("/DataExamples/animals/animals.csv").getFile(),
+    DataSet testData = DataUtilities.readCSVDataset(new ClassPathResource("/animals/DataExamples/animals/animals.csv").getFile(),
         global_conf.batchSizeTest, global_conf.numInputs, global_conf.numOutputs);
 
     //We need to normalize our data. We'll use NormalizeStandardize (which gives us mean 0, unit variance):
