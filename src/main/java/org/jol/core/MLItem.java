@@ -39,7 +39,7 @@ public class MLItem {
   }
   
   /**
-   * Output of Neural Network
+   * Output of the model
    */
   public INDArray getOutput() {
     return output;

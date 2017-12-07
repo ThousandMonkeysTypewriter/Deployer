@@ -1,6 +1,6 @@
 # Java Objects Learning
 
-JOL is a service that enables developers to quickly and easily load and implement Machine Learning models logic inside simple Java objects.
+JOL is a service that enables developers to quickly and easily load and implement Machine Learning models inside simple Java objects.
 
 ---
 ## Main Features
@@ -14,7 +14,10 @@ JOL is a service that enables developers to quickly and easily load and implemen
 **Mixing of techniques**: allows using both ML and standard logic inside Java objects
 
 
+
 ## Example
+![Iris example](https://nayname.github.io/diagram.png)
+
 Let's suppose we have a document containing [description](https://github.com/nayname/JOL/blob/master/src/main/resources/flowers/iris.txt) of flowers and we want to turn it [into the list of objects of the type Flower](https://github.com/nayname/JOL/blob/master/src/main/java/org/deeplearning4j/IrisClassifier.java). This object will contain parameters from the document (sepal length, sepal width, etc.) and a label - which type of flower that is. The label is not provided by the document so we will use our ML model to derive the flower's label from it's parameters.
 
 First, we load saved and trained model using model configuration.
@@ -42,6 +45,10 @@ For more info about the library structure please checkout out this [JavaDoc](htt
 
 ---
 
+[Deeplearning4J implementation examples](https://github.com/nayname/JOL/blob/master/DL4J.md)
+
+---
+
 
 ## Build and Run
 
@@ -58,7 +65,3 @@ The simplest way to  run an example is to call Java with following inputs:
 ```
 java -cp .:target/JOL-0.9.1-bin.jar org.deeplearning4j.ImagesClassifier
 ```
-
----
-
-[Deeplearning4J implementation examples](https://github.com/nayname/JOL/blob/master/DL4J.md)
