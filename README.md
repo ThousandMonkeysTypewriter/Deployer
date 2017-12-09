@@ -69,7 +69,7 @@ java -cp .:target/JOL-0.9.1-bin.jar org.deeplearning4j.IrisClassifier
 Also, there is an option to create and train the model from the scratch. 
 
 ```
-java -cp .:target/JOL-0.9.1-bin.jar org.deeplearning4j.ImagesClassifier create
+java -cp .:target/JOL-0.9.1-bin.jar org.deeplearning4j.IrisClassifier create
 ```
 
 Every example, except ImagesClassifier comes with the already trained model.

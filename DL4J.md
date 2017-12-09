@@ -1,36 +1,54 @@
-## Deeplearning4J implementation examples
+## Deeplearning4J classifier examples
 
-### Text analysis
+### Sentiment analysis
 
- - Feed list of reviews (IMDB) to get sentiment analyze. Use previously trained model, or train model and then feed new reviews;
-First, create the model from conf. 
+Main class
 
-`MLModel model = new MLModel(conf);`
+- org.deeplearning4j.ReviewsClassifier
 
-From each review (text) we create Object, then feed it to model and label this item as positive or negative.
+Gets a sentiment from the tex sample (IMDB review). 
+
+
+From each review we create Object, then feed it to the model and label this item as positive or negative.
 
 `    String text = FileUtils.readFileToString(files[1]);`
 `    Review review = new Review(model.prepareFeatures(text), model, text);`
 
-> /src/main/java/org/jol/ReviewsFeeder.java
+### Text classifier
 
-- data classification (sort animals by class in CSV)
+Main class
+
+- org.deeplearning4j.AnimalsClassifier
+
+sort animals descriptions by types
 
 `    Animal animal = new Animal(slice, model, data.get(i));`
 `    String label = animal.getLabel();`
 `    animals.get(label).add(animal);` 
 
-> /src/main/java/org/jol/AnimalsClassifier.java
-> /src/main/java/org/jol/IrisClassifier.java
+### Image classifier
 
+Main class
 
-### Image analyzis
+- org.deeplearning4j.AnimalsClassifier
 
-> dl4j-examples/dl4j-examples/src/main/java/org/deeplearning4j/examples/convolution/
+sort animals descriptions by types
 
-git update-index --assume-unchanged src/main/resources/images/model.zip
-git update-index --assume-unchanged src/main/resources/review/GoogleNews-vectors-negative300.bin.gz
-git update-index --assume-unchanged src/main/resources/review/dl4j_w2vSentiment/aclImdb_v1.tar.gz
+`    Animal animal = new Animal(slice, model, data.get(i));`
+`    String label = animal.getLabel();`
+`    animals.get(label).add(animal);` 
+
+### Iris classifier
+
+Main class
+
+- org.deeplearning4j.AnimalsClassifier
+
+sort animals descriptions by types
+
+`    Animal animal = new Animal(slice, model, data.get(i));`
+`    String label = animal.getLabel();`
+`    animals.get(label).add(animal);` 
 
 
 
