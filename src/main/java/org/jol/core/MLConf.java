@@ -1,5 +1,6 @@
 package org.jol.core;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -102,7 +103,9 @@ public abstract class MLConf {
     if ( dataPathLocal != null )
       dataPathAbsolute = new ClassPathResource(dataPathLocal).getFile().getAbsolutePath();
     
-    modelLocationAbsolute = new ClassPathResource(modelLocationLocal).getFile().getAbsolutePath();
+    if (modelLocationLocal != null && new File(modelLocationLocal).exists())
+      modelLocationAbsolute = new ClassPathResource(modelLocationLocal).getFile().getAbsolutePath();
+
     System.err.println("#");
   }
 

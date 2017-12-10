@@ -1,5 +1,6 @@
 package org.jol.dl4j.model;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,8 +35,12 @@ public class DL4JModel implements MLModel {
       trainModel();
       saveToDisk();
     }
-    else 
-      restore(conf.modelLocationAbsolute);
+    else {
+      if (conf.modelLocationAbsolute != null &&  new File(conf.modelLocationAbsolute).exists())
+        restore(conf.modelLocationAbsolute);
+      else 
+        throw new RuntimeException("No model was found, please create and save the model first");
+    }
 
     for ( Entry<Integer, String[]> l : DataUtilities.readEnumCSV(new ClassPathResource(conf.classifier).getFile()).entrySet() ) {
       labels.put(l.getKey(), l.getValue()[1]);
