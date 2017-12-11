@@ -38,9 +38,6 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * @author Adam Gibson
- */
 public class IrisClassifier {
 
   public static void main(String[] args) throws  Exception {
