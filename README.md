@@ -5,7 +5,7 @@ JOL is a service that enables developers to quickly and easily load and implemen
 ---
 ## Main Features
 
-**Separation of concerns:**  Separation of ML models and runtime objects helps to avoid mixing of the logic
+**Separation of concerns:**  Separation of ML models and runtime objects helps to avoid mixing of functions
 
 **Asynchronous development**: Modification of the model (including switching ML frameworks) or the object does not affect one another
 
@@ -28,9 +28,9 @@ Then, we load the document. Each row of the represents one flower. The first row
 
 `5.1,3.5,1.4,0.2,0`
 
-Using the model, model features and parameters we create new Flower
+Using the model, model features and parameters we create new Flower, providing it's data, model and data labels ("sepal width" etc.)
 
-`Flower iris = new Flower(slice, model, data.get(i));`
+`Flower iris = new Flower(row, model, data.get(i));`
 
 
 It will have the following fields
