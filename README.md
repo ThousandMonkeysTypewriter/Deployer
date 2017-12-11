@@ -20,11 +20,11 @@ JOL is a service that enables developers to quickly and easily load and implemen
 
 Let's suppose we have a document containing [description](https://github.com/nayname/JOL/blob/master/src/main/resources/flowers/iris.txt) of flowers and we want to turn it [into the list of objects of the type Flower](https://github.com/nayname/JOL/blob/master/src/main/java/org/deeplearning4j/IrisClassifier.java). This object will contain parameters from the document (sepal length, sepal width, etc.) and a label - which type of flower that is. The label is not provided by the document so we will use our ML model to derive the flower's label from it's parameters.
 
-First, we load saved and trained model using model configuration.
+First, we load saved and trained model using the model configuration.
 
 `MLModel model = new MLModel(conf);`
 
-Then, we load the document. Each row of the represents one flower. The first row looks like this:
+Then, we load the document. Each row represents one flower. The first row looks like this:
 
 `5.1,3.5,1.4,0.2,0`
 
