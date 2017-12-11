@@ -28,9 +28,9 @@ Then, we load the document. Each row of the represents one flower. The first row
 
 `5.1,3.5,1.4,0.2,0`
 
-Using the model, model features and parameters we create new Flower, providing it's data, model and data labels ("sepal width" etc.)
+Using the model, model features (row) and parameters ("sepal width" etc.) we create new Flower, providing it's data, model and data labels 
 
-`Flower iris = new Flower(row, model, data.get(i));`
+`Flower iris = new Flower(row, model, parameters.get(i));`
 
 
 It will have the following fields
