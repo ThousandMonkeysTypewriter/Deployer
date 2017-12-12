@@ -5,15 +5,15 @@ JOL is a service that enables developers to quickly and easily load and implemen
 ---
 ## Main Features
 
-**Separation of concerns:**  Separation of ML models and runtime objects helps to avoid mixing of functions
+**Java development friendly**:  No extensive knowledge of Machine Learning is necessary to use machine learning functions in runtime enviroment
 
-**Asynchronous development**: Modification of the model (including switching ML frameworks) or the object does not affect one another
+**Integrity**: Objects incapsulate ML functions (prediction etc.), avoid external calls
 
-**Java development friendly**:  no extensive knowledge of Machine Learning or Python is necessary to use, load or train models
+**Mixing of techniques**: Allow using both ML and standard logic inside Java objects
 
-**Mixing of techniques**: allows using both ML and standard logic inside Java objects
+**Asynchronous development**: Runtime objects are not affected by modifications of the model
 
-
+**Separation of concerns:**  Separation of ML models and runtime objects helps to avoid mixing of the methods
 
 ## Example
 <img src="https://nayname.github.io/diagram.jpg?noresize"> 
@@ -41,7 +41,7 @@ The label was predicted by the model
 
 Finally, after analyzing all the rows, we will have the HashMap consisting of 41 Iris Virginica, 59 Iris Versicolour, 50 Iris Setosa. We can use these objects later in our program.
 
-For more info about the library structure please checkout out this [JavaDoc](https://nayname.github.io/javadoc/org/jol/core/package-summary.html)
+For more info about the library structure please check out this [JavaDoc](https://nayname.github.io/javadoc/org/jol/core/package-summary.html)
 
 ---
 
@@ -57,7 +57,7 @@ Use [Maven](https://maven.apache.org/) to build the examples.
 ```
 mvn clean package
 ```
-The simplest way to  run an example is to call Java with following inputs:
+The simplest way to  run an example is to call Java with the following inputs:
 
  - Path the JAR  
  - Chosen example's class as the main class
@@ -66,7 +66,7 @@ The simplest way to  run an example is to call Java with following inputs:
 java -cp .:target/JOL-0.9.1-bin.jar org.deeplearning4j.IrisClassifier
 ```
 
-Also, there is an option to create and train the model from the scratch. 
+Also, there is an option to create and train the model from scratch. 
 
 ```
 java -cp .:target/JOL-0.9.1-bin.jar org.deeplearning4j.IrisClassifier create
