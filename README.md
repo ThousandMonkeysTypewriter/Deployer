@@ -7,7 +7,7 @@ JOL is a service that enables developers to quickly and easily load and implemen
 
 **Java development friendly**:  No extensive knowledge of Machine Learning is necessary to use ML functions in runtime
 
-**Integrity**: Objects incapsulate ML functions (prediction etc.), avoid external calls
+**Integrity**: Objects encapsulate ML functions (prediction etc.), avoid external calls
 
 **Mixing of techniques**: Allow using both ML and standard logic inside Java objects
 
