@@ -20,36 +20,17 @@ Main class
 
 - org.deeplearning4j.AnimalsClassifier
 
-sort animals descriptions by types
-
-`    Animal animal = new Animal(slice, model, data.get(i));`
-`    String label = animal.getLabel();`
-`    animals.get(label).add(animal);` 
-
 ### Image classifier
 
 Main class
 
-- org.deeplearning4j.AnimalsClassifier
-
-sort animals descriptions by types
-
-`    Animal animal = new Animal(slice, model, data.get(i));`
-`    String label = animal.getLabel();`
-`    animals.get(label).add(animal);` 
+- org.deeplearning4j.ImagesClassifier
 
 ### Iris classifier
 
 Main class
 
-- org.deeplearning4j.AnimalsClassifier
-
-sort animals descriptions by types
-
-`    Animal animal = new Animal(slice, model, data.get(i));`
-`    String label = animal.getLabel();`
-`    animals.get(label).add(animal);` 
-
+- org.deeplearning4j.IrisClassifier
 
 
 
