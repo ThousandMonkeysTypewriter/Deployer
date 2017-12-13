@@ -73,3 +73,9 @@ java -cp .:target/JOL-0.9.1-bin.jar org.deeplearning4j.IrisClassifier create
 ```
 
 Every example, except ImagesClassifier comes with the already trained model.
+
+---
+
+Futher reading:
+
+https://medium.com/@karpathy/software-2-0-a64152b37c35
