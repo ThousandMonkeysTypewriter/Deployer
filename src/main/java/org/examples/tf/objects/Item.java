@@ -18,6 +18,10 @@ public class Item extends MLItem {
   public String toString() {
     return "rows: "+rows+", score: "+score;
   }
+
+  public Double getScore() {
+    return score;
+  }
 }
 
 class Row {

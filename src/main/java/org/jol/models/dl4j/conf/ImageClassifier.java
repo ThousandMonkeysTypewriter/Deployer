@@ -1,4 +1,4 @@
-package org.jol.dl4j.conf;
+package org.jol.models.dl4j.conf;
 
 import org.jol.core.MLConf;
 import org.datavec.api.io.filters.BalancedPathFilter;
@@ -266,7 +266,7 @@ public class ImageClassifier extends MLConf {
     return null;
   }
 
-  public int getIndex(INDArray output) {
+  public float getIndex(INDArray output) {
     return maxIndex(getFloatArrayFromSlice(output));
   }
 

@@ -1,13 +1,18 @@
 package org.examples.tf;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import org.apache.commons.io.FileUtils;
 import org.datavec.api.util.ClassPathResource;
 import org.examples.tf.objects.Item;
 import org.jol.core.MLConf;
 import org.jol.core.MLModel;
+import org.jol.core.MLItem;
+import org.jol.core.MLCollection;
 import org.jol.models.TFModel;
+import org.tensorflow.Session;
+import org.tensorflow.Tensor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,34 +26,14 @@ public class ItemsSort {
     if (args.length > 0 && args[0].equals("create")) 
       conf.create = true;
 
-    ArrayList<Item> items = new ArrayList<>();
+    ArrayList<MLItem> items = new ArrayList<>();
     
     MLModel model = new TFModel(conf);
     
-   /* //model inputs
-    DataSet testData = DataUtilities.readCSVDataset(new ClassPathResource("/animals/DataExamples/animals/animals.csv").getFile(),
-        conf.batchSizeTest, conf.numInputs, conf.numOutputs);
-        
-    //labels for MLItems objects
-    Map<Integer,String[]> data = DataUtilities.readEnumCSV(new ClassPathResource("/animals/DataExamples/animals/animals_labels.csv").getFile());
-
-    MLModel model = new DL4JModel(conf);
-
-    INDArray features = model.prepareFeatures(testData, true);
-
-    for (int i = 0; i < features.rows() ; i++) {
-      INDArray slice = features.slice(i);
-
-      Animal animal = new Animal(slice, model, data.get(i));
-      
-      String label = animal.getLabel();
-      if (!animals.containsKey(label))
-        animals.put(label, new ArrayList<>());
-
-      animals.get(label).add(animal);
-    } */
+	MLCollection list = new MLCollection(items);
+	
+	list.sort();
     
     System.err.println(items);
   }
-
 }

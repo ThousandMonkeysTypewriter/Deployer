@@ -6,10 +6,6 @@ import java.io.IOException;
 
 import org.datavec.api.util.ClassPathResource;
 import org.deeplearning4j.nn.api.Model;
-import org.jol.dl4j.conf.BasicCSVClassifier;
-import org.jol.dl4j.conf.CSVClassifier;
-import org.jol.dl4j.conf.ImageClassifier;
-import org.jol.dl4j.conf.SentimentAnalyzer;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +14,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import org.jol.dl4j.conf.BasicCSVClassifier;
+import org.jol.models.dl4j.conf.BasicCSVClassifier;
+import org.jol.models.dl4j.conf.CSVClassifier;
+import org.jol.models.dl4j.conf.ImageClassifier;
+import org.jol.models.dl4j.conf.SentimentAnalyzer;
+import org.jol.models.tf.conf.BasicRanker;
 
 /**
  * Returns the data which is necessary for loading and using Model. Deserializes a data from JSON.
@@ -31,6 +31,7 @@ import org.jol.dl4j.conf.BasicCSVClassifier;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 @JsonSubTypes({
+  @JsonSubTypes.Type(value = BasicRanker.class, name = "BasicRanker"),
   @JsonSubTypes.Type(value = BasicCSVClassifier.class, name = "BasicCSVClassifier"),
   @JsonSubTypes.Type(value = CSVClassifier.class, name = "CSVClassifier"),
   @JsonSubTypes.Type(value = ImageClassifier.class, name = "ImageClassifier"),
@@ -117,7 +118,7 @@ public abstract class MLConf {
   /**
    * Get label num
    */
-  public abstract int getIndex (INDArray output);
+  public abstract float getIndex (INDArray output);
 
   /**
    * Featurize string

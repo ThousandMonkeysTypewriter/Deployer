@@ -9,19 +9,27 @@ import org.datavec.api.util.ClassPathResource;
 import org.deeplearning4j.nn.api.Model;
 import org.jol.core.MLConf;
 import org.jol.core.MLModel;
-import org.jol.dl4j.utilities.DataUtilities;
+import org.jol.models.dl4j.utilities.DataUtilities;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 
+import org.tensorflow.SavedModelBundle;
+import org.tensorflow.Tensor;
+import org.tensorflow.Session;
+
 public class TFModel implements MLModel {
 
+  private MLConf conf;
+  private SavedModelBundle model;
+  private Session session;
+
   public TFModel (MLConf conf_) throws Exception {
-   /* conf = conf_;
+    conf = conf_;
     conf.init();
 
     if (conf.create) {
-      trainModel();
-      saveToDisk();
+//      trainModel();
+//      saveToDisk();
     }
     else {
       if (conf.modelLocationAbsolute != null &&  new File(conf.modelLocationAbsolute).exists())
@@ -30,9 +38,9 @@ public class TFModel implements MLModel {
         throw new RuntimeException("No model was found, please create and save the model first");
     }
 
-    for ( Entry<Integer, String[]> l : DataUtilities.readEnumCSV(new ClassPathResource(conf.classifier).getFile()).entrySet() ) {
-      labels.put(l.getKey(), l.getValue()[1]);
-    }*/
+//    for ( Entry<Integer, String[]> l : DataUtilities.readEnumCSV(new ClassPathResource(conf.classifier).getFile()).entrySet() ) {
+//      labels.put(l.getKey(), l.getValue()[1]);
+//    }
   }
   
   @Override
@@ -43,8 +51,8 @@ public class TFModel implements MLModel {
 
   @Override
   public void restore(String modelLocation) throws IOException {
-    // TODO Auto-generated method stub
-    
+    model = SavedModelBundle.load(modelLocation, "serve");
+    session = model.session();
   }
 
   @Override
@@ -75,13 +83,20 @@ public class TFModel implements MLModel {
 
   @Override
   public Model getModel() {
-    // TODO Auto-generated method stub
     return null;
   }
 
-  @Override
   public String getLabel(INDArray output) {
-    // TODO Auto-generated method stub
+ /*   Tensor result = session.runner()
+        .feed("x_data", inputTensor)
+        .fetch("output_layer")
+        .run().get(0);
+
+    float[][] m = new float[inputDoubles.size()][1];
+    float[][] vector = result.copyTo(m);
+
+    for(int i=0;i<vector.length;i++) 
+        items.get(i).score = vector[i][0];		*/
     return null;
   }
 

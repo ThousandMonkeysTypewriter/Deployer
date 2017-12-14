@@ -1,4 +1,4 @@
-package org.jol.dl4j.conf;
+package org.jol.models.dl4j.conf;
 
 import org.apache.commons.io.FileUtils;
 import org.datavec.api.util.ClassPathResource;
@@ -15,8 +15,8 @@ import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.jol.core.MLConf;
-import org.jol.dl4j.utilities.DataUtilities;
-import org.jol.dl4j.utilities.SentimentExampleIterator;
+import org.jol.models.dl4j.utilities.DataUtilities;
+import org.jol.models.dl4j.utilities.SentimentExampleIterator;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -192,7 +192,7 @@ public class SentimentAnalyzer extends MLConf {
     return features;
   }
 
-  public int getIndex(INDArray output) {
+  public float getIndex(INDArray output) {
     int timeSeriesLength = output.size(2);
     INDArray probabilitiesAtLastWord = output.get(NDArrayIndex.point(0), NDArrayIndex.all(), NDArrayIndex.point(timeSeriesLength - 1));
 

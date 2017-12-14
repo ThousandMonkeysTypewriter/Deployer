@@ -9,8 +9,8 @@ import org.datavec.api.util.ClassPathResource;
 import org.examples.dl4j.objects.Animal;
 import org.jol.core.MLConf;
 import org.jol.core.MLModel;
-import org.jol.dl4j.utilities.DataUtilities;
 import org.jol.models.DL4JModel;
+import org.jol.models.dl4j.utilities.DataUtilities;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 

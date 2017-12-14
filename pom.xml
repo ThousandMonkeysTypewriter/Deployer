@@ -60,6 +60,11 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+			<groupId>org.tensorflow</groupId>
+			<artifactId>tensorflow</artifactId>
+			<version>1.3.0</version>
+		</dependency>
         <!-- ND4J backend. You need one in every DL4J project. Normally define artifactId as either "nd4j-native-platform" or "nd4j-cuda-7.5-platform" -->
         <dependency>
             <groupId>org.nd4j</groupId>

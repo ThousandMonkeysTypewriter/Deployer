@@ -1,4 +1,4 @@
-package org.jol.dl4j.utilities;
+package org.jol.models.dl4j.utilities;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
