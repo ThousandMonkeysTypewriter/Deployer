@@ -94,4 +94,4 @@ Every example, except ImagesClassifier comes with the already trained model.
 
 Futher reading:
 
-[Andrej Karpathy: Software 2.0] (https://medium.com/@karpathy/software-2-0-a64152b37c35)
+[Andrej Karpathy: Software 2.0](https://medium.com/@karpathy/software-2-0-a64152b37c35)
