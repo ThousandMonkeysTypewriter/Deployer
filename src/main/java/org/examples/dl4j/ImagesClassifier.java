@@ -1,4 +1,4 @@
-package org.deeplearning4j;
+package org.examples.dl4j;
 
 import org.apache.commons.io.FileUtils;
 import org.datavec.api.io.labels.ParentPathLabelGenerator;
@@ -6,14 +6,14 @@ import org.datavec.api.util.ClassPathResource;
 import org.datavec.image.recordreader.BaseImageRecordReader;
 import org.datavec.image.recordreader.ImageRecordReader;
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
-import org.deeplearning4j.objects.Animal;
-import org.deeplearning4j.objects.Image;
-import org.deeplearning4j.objects.Review;
-import org.deeplearning4j.utilities.DataBind;
-import org.deeplearning4j.utilities.DataUtilities;
+import org.examples.dl4j.objects.Animal;
+import org.examples.dl4j.objects.Image;
+import org.examples.dl4j.objects.Review;
 import org.jol.core.MLConf;
 import org.jol.core.MLModel;
-import org.jol.dl4j.model.DL4JModel;
+import org.jol.dl4j.utilities.DataBind;
+import org.jol.dl4j.utilities.DataUtilities;
+import org.jol.models.DL4JModel;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 

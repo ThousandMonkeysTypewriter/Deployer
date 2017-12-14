@@ -1,24 +1,17 @@
-package org.deeplearning4j;
+package org.examples.tf;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.datavec.api.util.ClassPathResource;
-import org.deeplearning4j.objects.Animal;
-import org.deeplearning4j.utilities.DataUtilities;
+import org.examples.tf.objects.Item;
 import org.jol.core.MLConf;
 import org.jol.core.MLModel;
-import org.jol.dl4j.model.DL4JModel;
-import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.dataset.DataSet;
+import org.jol.models.TFModel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AnimalsClassifier {
-
+public class ItemsSort {
   public static void main(String[] args) throws Exception {
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -28,14 +21,16 @@ public class AnimalsClassifier {
     if (args.length > 0 && args[0].equals("create")) 
       conf.create = true;
 
-    Map<String, ArrayList<Animal>> animals = new HashMap<String,ArrayList<Animal>>();
+    ArrayList<Item> items = new ArrayList<>();
     
-    //model inputs
+    MLModel model = new TFModel(conf);
+    
+   /* //model inputs
     DataSet testData = DataUtilities.readCSVDataset(new ClassPathResource("/animals/DataExamples/animals/animals.csv").getFile(),
         conf.batchSizeTest, conf.numInputs, conf.numOutputs);
-		
+        
     //labels for MLItems objects
-	Map<Integer,String[]> data = DataUtilities.readEnumCSV(new ClassPathResource("/animals/DataExamples/animals/animals_labels.csv").getFile());
+    Map<Integer,String[]> data = DataUtilities.readEnumCSV(new ClassPathResource("/animals/DataExamples/animals/animals_labels.csv").getFile());
 
     MLModel model = new DL4JModel(conf);
 
@@ -51,8 +46,9 @@ public class AnimalsClassifier {
         animals.put(label, new ArrayList<>());
 
       animals.get(label).add(animal);
-    }
+    } */
     
-    System.err.println(animals);
+    System.err.println(items);
   }
+
 }

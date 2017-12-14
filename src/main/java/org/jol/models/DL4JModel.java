@@ -1,4 +1,4 @@
-package org.jol.dl4j.model;
+package org.jol.models;
 
 import java.io.File;
 import java.io.IOException;

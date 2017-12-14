@@ -1,4 +1,4 @@
-package org.deeplearning4j.objects;
+package org.examples.dl4j.objects;
 
 import org.jol.core.MLItem;
 import org.jol.core.MLModel;

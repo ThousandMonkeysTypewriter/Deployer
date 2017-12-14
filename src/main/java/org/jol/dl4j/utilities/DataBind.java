@@ -1,4 +1,4 @@
-package org.deeplearning4j.utilities;
+package org.jol.dl4j.utilities;
 
 import java.net.URI;
 

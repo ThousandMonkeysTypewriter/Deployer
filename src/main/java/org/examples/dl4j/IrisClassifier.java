@@ -1,4 +1,4 @@
-package org.deeplearning4j;
+package org.examples.dl4j;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
-import org.deeplearning4j.objects.Animal;
-import org.deeplearning4j.objects.Flower;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
-import org.deeplearning4j.utilities.DataUtilities;
+import org.examples.dl4j.objects.Animal;
+import org.examples.dl4j.objects.Flower;
 import org.jol.core.MLConf;
 import org.jol.core.MLModel;
-import org.jol.dl4j.model.DL4JModel;
+import org.jol.dl4j.utilities.DataUtilities;
+import org.jol.models.DL4JModel;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
