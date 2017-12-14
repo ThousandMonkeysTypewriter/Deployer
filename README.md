@@ -44,8 +44,24 @@ Finally, after analyzing all the rows, we will have the HashMap consisting of 41
 For more info about the library structure please check out this [JavaDoc](https://nayname.github.io/javadoc/org/jol/core/package-summary.html)
 
 ---
+##Supported Artificial Intelligence frameworks
 
-[Deeplearning4J implementation examples](https://github.com/nayname/JOL/blob/master/DL4J.md)
+###DeepLearning
+ - TensorFlow
+    - [TensorFlow implementation examples](https://github.com/nayname/JOL/blob/master/TF.md)
+ - Deeplearning4J
+  - [Deeplearning4J implementation examples](https://github.com/nayname/JOL/blob/master/DL4J.md)
+ - PyTorch
+ - ...
+
+
+###MachineLearning
+
+ - Spark
+ - XGboost
+ - ...
+
+ 
 
 ---
 
@@ -78,4 +94,4 @@ Every example, except ImagesClassifier comes with the already trained model.
 
 Futher reading:
 
-https://medium.com/@karpathy/software-2-0-a64152b37c35
+[Andrej Karpathy: Software 2.0] (https://medium.com/@karpathy/software-2-0-a64152b37c35)
