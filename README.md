@@ -51,7 +51,7 @@ For more info about the library structure please check out this [JavaDoc](https:
  - TensorFlow
     - [TensorFlow implementation examples](https://github.com/nayname/JOL/blob/master/TF.md)
  - Deeplearning4J
-  - [Deeplearning4J implementation examples](https://github.com/nayname/JOL/blob/master/DL4J.md)
+    - [Deeplearning4J implementation examples](https://github.com/nayname/JOL/blob/master/DL4J.md)
  - PyTorch
  - ...
 
@@ -93,6 +93,10 @@ Every example, except ImagesClassifier comes with the already trained model.
 
 ---
 
-Futher reading:
+### Futher reading:
 
 [Andrej Karpathy: Software 2.0](https://medium.com/@karpathy/software-2-0-a64152b37c35)
+
+### Contacts:
+
+nayname@gmail.com
