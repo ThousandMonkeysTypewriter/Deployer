@@ -103,6 +103,8 @@ Every example, except ImagesClassifier comes with the already trained model.
 
 [TensorLog: A Differentiable Deductive Database](https://arxiv.org/abs/1605.06523)
 
+[Neuro-Symbolic Program Synthesis](https://www.microsoft.com/en-us/research/publication/neuro-symbolic-program-synthesis-2/)
+
 ### Contacts:
 
 nayname@gmail.com
