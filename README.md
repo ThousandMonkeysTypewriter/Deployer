@@ -1,4 +1,4 @@
-Java Objects Learning: *Let the object learn it's methods*
+Java Objects Learning
 =========================
 
 JOL is a service that enables developers to quickly and easily implement Machine Learning functions inside simple Java objects.
