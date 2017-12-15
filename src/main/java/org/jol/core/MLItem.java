@@ -12,7 +12,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  */
 public class MLItem {
   
-  MLModel model;
+  private MLModel model;
   
   private INDArray features;
   private INDArray output;
