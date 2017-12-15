@@ -2,6 +2,7 @@ package org.jol.models;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,6 +12,7 @@ import org.deeplearning4j.nn.api.Model;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.util.ModelSerializer;
 import org.jol.core.MLConf;
+import org.jol.core.MLItem;
 import org.jol.core.MLModel;
 import org.jol.models.dl4j.utilities.DataUtilities;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -91,6 +93,16 @@ public class DL4JModel implements MLModel {
 
   public void fitNormalizer(DataSet input) {
     normalizer.fit(input);
+  }
+
+  public void prepareFeatures(ArrayList<MLItem> items) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  public void getLabel(ArrayList<MLItem> items) {
+    // TODO Auto-generated method stub
+    
   }
 }
 

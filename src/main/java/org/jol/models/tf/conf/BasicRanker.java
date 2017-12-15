@@ -10,30 +10,17 @@ import org.tensorflow.Tensor;
 
 public class BasicRanker extends MLConf {
 
-  private float[][] vector;
-
   public Model train(MLConf global_conf) throws Exception {
     // TODO Auto-generated method stub
     return null;
   }
 
   public float getIndex(INDArray output) {
-    return vector[1][0];
+    return 0f;
   }
 
-  public Tensor prepareFeatures(ArrayList<double[]> inputDoubles){
-    float[][] matrix = new float[inputDoubles.size()][numInputs];
-
-    for (int j=0;j<inputDoubles.size();j++) 
-      for(int i=0;i<batchSizeTest;i++)
-        matrix[j][i]=(float)inputDoubles.get(j)[i];
-//      items.get(j).tf_matrix = matrix[j];
- 
-    return Tensor.create(matrix);
+  public INDArray prepareFeatures(String input) throws IOException,
+  InterruptedException {
+    return null;
   }
-  
-    public INDArray prepareFeatures(String input) throws IOException,
-      InterruptedException {
-		 return null;
-	}
 }

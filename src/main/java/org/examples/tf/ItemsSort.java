@@ -30,7 +30,7 @@ public class ItemsSort {
     
     MLModel model = new TFModel(conf);
     
-	MLCollection list = new MLCollection(items);
+	MLCollection list = new MLCollection(items, model);
 	
 	list.sort();
     

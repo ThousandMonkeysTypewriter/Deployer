@@ -1,6 +1,7 @@
 package org.jol.core;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.deeplearning4j.nn.api.Model;
@@ -54,6 +55,8 @@ public interface MLModel {
    * @throws InterruptedException
    */
   INDArray prepareFeatures(DataSet test, boolean normalize) throws IOException, InterruptedException;
+  
+  void prepareFeatures(ArrayList<MLItem> items);
 
   Map<Integer, String> getLabels();
   
@@ -66,8 +69,11 @@ public interface MLModel {
    * @return
    */
   String getLabel(INDArray output);
+  
+  void getLabel(ArrayList<MLItem> items);
 
   INDArray output(INDArray features);
 
   void trainModel() throws Exception;
+
 }

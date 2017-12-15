@@ -17,7 +17,7 @@ public class MLItem {
   private INDArray features;
   private INDArray output;
   
-  
+  private String label;
   /**
    * Creates part of the object that generates the label
    * 
@@ -43,5 +43,13 @@ public class MLItem {
    */
   public INDArray getOutput() {
     return output;
+  }
+  
+  public void setFeatures(INDArray f) {
+    features = f;
+  }
+  
+  public INDArray getFeatures() {
+    return features;
   }
 }
