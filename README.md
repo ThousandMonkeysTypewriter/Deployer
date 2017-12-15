@@ -99,6 +99,10 @@ Every example, except ImagesClassifier comes with the already trained model.
 
 [RobustFill: Neural Program Learning](https://arxiv.org/abs/1703.07469)
 
+[TerpreT: A Probabilistic Programming Language for Program Induction](https://arxiv.org/abs/1608.04428)
+
+[TensorLog: A Differentiable Deductive Database](https://arxiv.org/abs/1605.06523)
+
 ### Contacts:
 
 nayname@gmail.com
