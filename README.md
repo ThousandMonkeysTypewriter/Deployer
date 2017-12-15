@@ -1,7 +1,7 @@
 Java Objects Learning
 =========================
 
-JOL is a service that enables developers to quickly and easily implement Machine Learning functions inside simple Java objects.
+JOL is a service that enables developers to quickly and easily implement Machine Learning functions inside simple Java objects. Utility to use ML generated code and standard Java object code simultaneously.
 
 ---
 ## Main Features
