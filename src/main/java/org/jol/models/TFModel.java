@@ -137,7 +137,7 @@ public class TFModel implements MLModel {
  
     Tensor inputTensor = Tensor.create(matrix);
 
-    Tensor result = s.runner()
+    Tensor result = session.runner()
         .feed("x_data", inputTensor)
         .fetch("output_layer")
         .run().get(0);
@@ -145,7 +145,7 @@ public class TFModel implements MLModel {
     float[][] m = new float[inputDoubles.size()][1];
     float[][] vector = result.copyTo(m);
 
-    for(int i=0;i<vector.length;i++)  
+//    for(int i=0;i<vector.length;i++)  
 //        items.get(i).setLabel(vector[i][0]);
   }
 

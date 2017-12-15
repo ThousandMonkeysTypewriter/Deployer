@@ -1,7 +1,6 @@
 package org.jol.core;
 
 import org.examples.dl4j.objects.Animal;
-import org.examples.dl4j.objects.Flower;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
 /**
