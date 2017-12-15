@@ -96,6 +96,7 @@ Every example, except ImagesClassifier comes with the already trained model.
 ### Futher reading:
 
 [Andrej Karpathy: Software 2.0](https://medium.com/@karpathy/software-2-0-a64152b37c35)
+
 [RobustFill: Neural Program Learning](https://arxiv.org/abs/1703.07469)
 
 ### Contacts:
