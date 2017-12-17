@@ -19,6 +19,9 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.MultiDataSet;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
+import org.deeplearning4j.util.ModelSerializer;
+
+
 
 /**
  * Created by susaneraly on 3/27/16.
@@ -116,6 +119,9 @@ public class AdditionRNN {
         ComputationGraph net = new ComputationGraph(configuration);
         net.init();
         net.setListeners(new ScoreIterationListener(1));
+		
+	//	ModelSerializer.writeModel(net, "/root/JOL/src/main/resources/rnn/model.zip", true);
+	//	net =  ModelSerializer.restoreComputationGraph("/root/JOL/src/main/resources/rnn/model.zip");
 
         //Train model:
         int iEpoch = 0;

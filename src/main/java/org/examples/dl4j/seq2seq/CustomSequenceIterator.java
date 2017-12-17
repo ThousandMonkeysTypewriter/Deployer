@@ -70,7 +70,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
             while (true) {
                 num1 = randnumG.nextInt((int) Math.pow(10, numDigits));
                 num2 = randnumG.nextInt((int) Math.pow(10, numDigits));
-                String forSum = String.valueOf(num1) + "+" + String.valueOf(num2);
+                String forSum = String.valueOf(num1) + "&" + String.valueOf(num2);
                 if (seenSequences.add(forSum)) {
                     break;
                 }
@@ -83,7 +83,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
                 //wipe out everything after "go"; not necessary since we do not use these at test time but here for clarity
                 int i = 1;
                 while (i < decoderInput.length) {
-                    decoderInput[i] = " ";
+                    decoderInput[i] = "_";
                     i++;
                 }
             }
@@ -152,24 +152,26 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
      */
     public String[] prepToString(int num1, int num2) {
 
-        String[] encoded = new String[numDigits * 2 + 1];
-        String num1S = String.valueOf(num1);
-        String num2S = String.valueOf(num2);
+  //      String[] encoded = new String[numDigits * 2 + 1];
+        String num1S = String.valueOf((char)(num1 + 'A' - 1)).toLowerCase();
+        String num2S = String.valueOf((char)(num2 + 'A' - 1)).toLowerCase();
         //padding
+		System.err.println(num1S+"-"+num2S);
         while (num1S.length() < numDigits) {
-            num1S = " " + num1S;
+            num1S = "_" + num1S;
         }
         while (num2S.length() < numDigits) {
-            num2S = " " + num2S;
+            num2S = "_" + num2S;
         }
 
-        String sumString = num1S + "+" + num2S;
+        String sumString = num1S + "&" + num2S;
 
-        for (int i = 0; i < encoded.length; i++) {
-            encoded[(encoded.length - 1) - i] = Character.toString(sumString.charAt(i));
-        }
+//        for (int i = 0; i < encoded.length; i++) {
+//            encoded[(encoded.length - 1) - i] = Character.toString(sumString.charAt(i));
+//        }
 
-        return encoded;
+System.err.println(sumString);
+        return sumString.split("");
 
     }
 
@@ -206,7 +208,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
 
         //needed padding
         while (maxIndex <= end) {
-            decoded[maxIndex] = " ";
+            decoded[maxIndex] = "_";
             maxIndex++;
         }
         return decoded;
@@ -222,6 +224,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
 
         INDArray ret = Nd4j.zeros(1, SEQ_VECTOR_DIM, toEncode.length);
         for (int i = 0; i < toEncode.length; i++) {
+			System.err.println(toEncode[i]+" - "+oneHotMap);
             ret.putScalar(0, oneHotMap.get(toEncode[i]), i, 1);
         }
 
@@ -260,7 +263,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
         String ret = "";
         for (int i = 0; i < toMap.length; i++) {
             ret += oneHotOrder[toMap[i]];
-            System.err.println(toMap[i]);
+   //         System.err.println(toMap[i]);
         }
         //encoder sequence, needs to be reversed
         if (toMap.length > numDigits + 1 + 1) {
@@ -275,21 +278,20 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
     private static void oneHotEncoding() {
 
         for (int i = 0; i < 10; i++) {
-            oneHotOrder[i] = String.valueOf(i);
-            oneHotMap.put(String.valueOf(i), i);
+            oneHotOrder[i] = String.valueOf((char)(i + 'A' - 1)).toLowerCase();
+            oneHotMap.put(String.valueOf((char)(i + 'A' - 1)).toLowerCase(), i);
         }
-        oneHotOrder[10] = " ";
-        oneHotMap.put(" ", 10);
+        oneHotOrder[10] = "_";
+        oneHotMap.put("_", 10);
 
-        oneHotOrder[11] = "+";
-        oneHotMap.put("+", 11);
+        oneHotOrder[11] = "&";
+        oneHotMap.put("&", 11);
 
         oneHotOrder[12] = "Go";
         oneHotMap.put("Go", 12);
 
         oneHotOrder[13] = "End";
         oneHotMap.put("End", 13);
-
     }
 
     public void setPreProcessor(MultiDataSetPreProcessor preProcessor) {
