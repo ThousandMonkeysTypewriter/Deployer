@@ -109,6 +109,8 @@ Every example, except ImagesClassifier comes with the already trained model.
 
 [Neuro-Symbolic Program Synthesis](https://www.microsoft.com/en-us/research/publication/neuro-symbolic-program-synthesis-2/)
 
+[Using Artificial Intelligence to Write Self-Modifying/Improving Programs](http://www.primaryobjects.com/2013/01/27/using-artificial-intelligence-to-write-self-modifying-improving-programs/)
+
 ### Contacts:
 
 nayname@gmail.com
