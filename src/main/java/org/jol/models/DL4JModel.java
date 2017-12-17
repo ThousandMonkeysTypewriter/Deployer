@@ -62,7 +62,7 @@ public class DL4JModel implements MLModel {
   }
 
   public String getLabel(INDArray output) {
-    return labels.get(conf.getIndex(output));
+    return labels.get(Math.round(conf.getIndex(output)));
   }
 
   public void restore(String modelLocation) throws IOException {
