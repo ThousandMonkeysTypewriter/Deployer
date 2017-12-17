@@ -16,7 +16,8 @@ JOL is a service that enables developers to quickly and easily implement Machine
 
 **Separation of concerns:**  Separation of ML models and objects helps to avoid mixing of the methods
 
-## Example
+## Tutorial
+### Creation of a simple object with one variable (label) predicted
 <img src="https://nayname.github.io/diagram.jpg?noresize"> 
 
 Let's suppose we have a document containing [description](https://github.com/nayname/JOL/blob/master/src/main/resources/flowers/iris.txt) of flowers and we want to turn it [into the list of objects of the type Flower](https://github.com/nayname/JOL/blob/master/src/main/java/org/deeplearning4j/IrisClassifier.java). This object will contain parameters from the document (sepal length, sepal width, etc.) and a label - which type of flower that is. The label is not provided by the document so we will use our ML model to derive the flower's label from it's parameters.
@@ -43,6 +44,14 @@ The label was predicted by the model
 Finally, after analyzing all the rows, we will have the HashMap consisting of 41 Iris Virginica, 59 Iris Versicolour, 50 Iris Setosa. We can use these objects later in our program.
 
 For more info about the library structure please check out this [JavaDoc](https://nayname.github.io/javadoc/org/jol/core/package-summary.html)
+
+### Creation of a simple object with one ML function (helloWorld)
+
+...
+
+### Animal object with one predicted variable (type) and one model generated function (getName())
+
+...
 
 ---
 ## Supported Artificial Intelligence frameworks
