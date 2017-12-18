@@ -21,8 +21,8 @@ public class HelloWorld {
     MLConf conf = new ObjectMapper().readValue(FileUtils.readFileToString(
         new ClassPathResource("/h_world_object.json").getFile()), MLConf.class);
 
-	MLString hworld = new MLString(new TFModel(conf));
+//	MLString hworld = new MLString(new TFModel(conf));
     
-    System.err.println(hworld.getString());
+//    System.err.println(hworld.getString());
   }
 }

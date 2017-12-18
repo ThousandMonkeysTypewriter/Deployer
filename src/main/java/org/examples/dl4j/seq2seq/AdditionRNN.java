@@ -118,7 +118,7 @@ public class AdditionRNN {
 
         ComputationGraph net = new ComputationGraph(configuration);
         net.init();
-        net.setListeners(new ScoreIterationListener(1));
+//        net.setListeners(new ScoreIterationListener(1));
 		
 	//	ModelSerializer.writeModel(net, "/root/JOL/src/main/resources/rnn/model.zip", true);
 	//	net =  ModelSerializer.restoreComputationGraph("/root/JOL/src/main/resources/rnn/model.zip");
@@ -135,10 +135,10 @@ public class AdditionRNN {
             encode_decode_eval(predictions,testData.getFeatures()[0],testData.getLabels()[0]);
             /*
             (Comment/Uncomment) the following block of code to (see/or not see) how the output of the decoder is fed back into the input during test time
-            */
+            
             System.out.println("Printing stepping through the decoder for a minibatch of size three:");
             testData = iterator.generateTest(3);
-            predictor.output(testData,true);
+            predictor.output(testData,true);*/
             System.out.println("\n* = * = * = * = * = * = * = * = * = ** EPOCH " + iEpoch + " COMPLETE ** = * = * = * = * = * = * = * = * = * = * = * = * = * =");
             iEpoch++;
         }

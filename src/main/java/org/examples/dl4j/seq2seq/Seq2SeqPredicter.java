@@ -41,18 +41,17 @@ public class Seq2SeqPredicter {
 
     public INDArray output(MultiDataSet testSet, boolean print) {
 
-        INDArray correctOutput = testSet.getLabels()[0];
-        INDArray ret = Nd4j.zeros(correctOutput.shape());
+        INDArray ret;
         decoderInputTemplate = testSet.getFeatures()[1].dup();
 
         int currentStepThrough = 0;
-        int stepThroughs = correctOutput.size(2)-1;
+        int stepThroughs = testSet.getLabels()[0].size(2)-1;
 
         while (currentStepThrough < stepThroughs) {
             if (print) {
                 System.out.println("In time step "+currentStepThrough);
                 System.out.println("\tEncoder input and Decoder input:");
-                System.out.println(CustomSequenceIterator.mapToString(testSet.getFeatures()[0],decoderInputTemplate, " +  "));
+                System.out.println(CustomSequenceIterator.mapToString(testSet.getFeatures()[0],decoderInputTemplate, "="));
 
             }
             ret = stepOnce(testSet, currentStepThrough);
@@ -67,7 +66,7 @@ public class Seq2SeqPredicter {
         if (print) {
             System.out.println("Final time step "+currentStepThrough);
             System.out.println("\tEncoder input and Decoder input:");
-            System.out.println(CustomSequenceIterator.mapToString(testSet.getFeatures()[0],decoderInputTemplate, " +  "));
+            System.out.println("\t"+String.join("\n\t",CustomSequenceIterator.oneHotDecode(decoderInputTemplate)));
             System.out.println("\tDecoder output:");
             System.out.println("\t"+String.join("\n\t",CustomSequenceIterator.oneHotDecode(ret)));
         }
