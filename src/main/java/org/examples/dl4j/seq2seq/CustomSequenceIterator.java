@@ -33,6 +33,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
 
   private static final int numDigits = AdditionRNN.NUM_DIGITS;
   public static final int SEQ_VECTOR_DIM = AdditionRNN.FEATURE_VEC_SIZE;
+  public static final int OUTPUT_LEN = 60;
 
   private Set<String> seenSequences = new HashSet<String>();
   private boolean toTestSet = false;
@@ -77,7 +78,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
         }
       }
       String[] encoderInput = prepToString(num1, num2);
-      encoderSeqList.add(mapToOneHot(encoderInput));
+      encoderSeqList.add(mapToOneHot(encoderInput, 14));
 
       String[] decoderInput = prepToString(num1 + num2, true);
       if (toTestSet) {
@@ -88,16 +89,17 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
           i++;
         }
       }
-      decoderSeqList.add(mapToOneHot(decoderInput));
+      decoderSeqList.add(mapToOneHot(decoderInput, SEQ_VECTOR_DIM));
       String[] decoderOutput = prepToString(num1 + num2, false);
-      outputSeqList.add(mapToOneHot(decoderOutput));
+      outputSeqList.add(mapToOneHot(decoderOutput, SEQ_VECTOR_DIM));
       currentCount++;
     }
     
     String[] encoderInput = prepToString(7, 8);
-    encoderSeqList.add(mapToOneHot(encoderInput));
+    encoderSeqList.add(mapToOneHot(encoderInput, 14));
 
-    String[] decoderInput = prepToString("7,4,11,11,14,10,8,19,19,24", true);
+    String[] decoderInput = prepToString("56,7,4,53,53,14,10,52,8,19,19,24,58,57", true);
+  //  String[] decoderInput = prepToString("1,1,4,1,4,4,4", true);
     if (toTestSet) {
       //wipe out everything after "go"; not necessary since we do not use these at test time but here for clarity
       int i = 1;
@@ -106,9 +108,10 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
         i++;
       }
     }
-    decoderSeqList.add(mapToOneHot(decoderInput));
-    String[] decoderOutput = prepToString("7,4,11,11,14,10,8,19,19,24", false);
-    outputSeqList.add(mapToOneHot(decoderOutput)); 
+    decoderSeqList.add(mapToOneHot(decoderInput, SEQ_VECTOR_DIM));
+    String[] decoderOutput = prepToString("56,7,4,53,53,14,10,52,8,19,19,24,58,57", false);
+//    String[] decoderOutput = prepToString("1,1,4,1,4,4,4", true);
+    outputSeqList.add(mapToOneHot(decoderOutput, SEQ_VECTOR_DIM)); 
 
     encoderSeq = Nd4j.vstack(encoderSeqList);
     decoderSeq = Nd4j.vstack(decoderSeqList);
@@ -117,7 +120,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
     INDArray[] inputs = new INDArray[]{encoderSeq, decoderSeq};
     INDArray[] inputMasks = new INDArray[]{Nd4j.ones(sampleSize, numDigits * 2 + 1), Nd4j.ones(sampleSize, numDigits + 1 + 1)};
     INDArray[] labels = new INDArray[]{outputSeq};
-    INDArray[] labelMasks = new INDArray[]{Nd4j.ones(sampleSize, 11 + 1 + 1)};
+    INDArray[] labelMasks = new INDArray[]{Nd4j.ones(sampleSize, OUTPUT_LEN + 1 + 1)};
     currentBatch++;
     return new org.nd4j.linalg.dataset.MultiDataSet(inputs, labels, inputMasks, labelMasks);
   }
@@ -208,7 +211,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
    */
   public String[] prepToString(int sum, boolean goFirst) {
     int start, end;
-    String[] decoded = new String[11 + 1 + 1];
+    String[] decoded = new String[OUTPUT_LEN + 1 + 1];
     if (goFirst) {
       decoded[0] = "Go";
       start = 1;
@@ -241,7 +244,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
   
   public String[] prepToString(String str, boolean goFirst) {
     int start, end;
-    String[] decoded = new String[11 + 1 + 1];
+    String[] decoded = new String[OUTPUT_LEN + 1 + 1];
     if (goFirst) {
       decoded[0] = "Go";
       start = 1;
@@ -276,11 +279,11 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
         Each element in the array indicates a time step
         Length of one hot vector = 14
    */
-  private static INDArray mapToOneHot(String[] toEncode) {
+  private static INDArray mapToOneHot(String[] toEncode, int numInputs) {
 
-    INDArray ret = Nd4j.zeros(1, SEQ_VECTOR_DIM, toEncode.length);
+    INDArray ret = Nd4j.zeros(1, numInputs, toEncode.length);
     for (int i = 0; i < toEncode.length; i++) {
-      System.err.println(dsl.getCode(toEncode[i])+" - "+toEncode[i]);
+//      System.err.println(dsl.getCode(toEncode[i])+" - "+toEncode[i]);
       ret.putScalar(0, dsl.getCode(toEncode[i]), i, 1);
     }
 

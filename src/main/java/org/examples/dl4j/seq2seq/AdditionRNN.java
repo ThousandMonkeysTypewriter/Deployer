@@ -80,7 +80,8 @@ public class AdditionRNN {
     public static final int numHiddenNodes = 128;
 
     //This is the size of the one hot vector
-    public static final int FEATURE_VEC_SIZE = 14;
+    public static final int FEATURE_VEC_SIZE = 59;
+	public static final int inputsNum = 14;
 
     public static void main(String[] args) throws Exception {
 
@@ -99,10 +100,10 @@ public class AdditionRNN {
                 .graphBuilder()
                 //These are the two inputs to the computation graph
                 .addInputs("additionIn", "sumOut")
-                .setInputTypes(InputType.recurrent(FEATURE_VEC_SIZE), InputType.recurrent(FEATURE_VEC_SIZE))
+                .setInputTypes(InputType.recurrent(inputsNum), InputType.recurrent(inputsNum))
                 //The inputs to the encoder will have size = minibatch x featuresize x timesteps
                 //Note that the network only knows of the feature vector size. It does not know how many time steps unless it sees an instance of the data
-                .addLayer("encoder", new GravesLSTM.Builder().nIn(FEATURE_VEC_SIZE).nOut(numHiddenNodes).activation(Activation.SOFTSIGN).build(),"additionIn")
+                .addLayer("encoder", new GravesLSTM.Builder().nIn(inputsNum).nOut(numHiddenNodes).activation(Activation.SOFTSIGN).build(),"additionIn")
                 //Create a vertex indicating the very last time step of the encoder layer needs to be directed to other places in the comp graph
                 .addVertex("lastTimeStep", new LastTimeStepVertex("additionIn"), "encoder")
                 //Create a vertex that allows the duplication of 2d input to a 3d input

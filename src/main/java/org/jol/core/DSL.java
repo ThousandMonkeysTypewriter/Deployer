@@ -32,8 +32,28 @@ public class DSL {
     commandsToCodes.put("Go", 12);
 
     codesToCommands.put(13, "End");
-    commandsToCodes.put("End", 13);  
-    
+    commandsToCodes.put("End", 13);
+
+	codesToCommands.put(52, "K");
+    commandsToCodes.put("K", 52);
+
+    codesToCommands.put(53, "L");
+    commandsToCodes.put("L", 53);
+
+    codesToCommands.put(54, "M");
+    commandsToCodes.put("M", 54);
+
+    codesToCommands.put(55, "N");
+    commandsToCodes.put("N", 55);
+
+    codesToCommands.put(56, "println(");
+    commandsToCodes.put("println(", 56);	
+
+    codesToCommands.put(57, ";");
+    commandsToCodes.put(";", 57);	
+
+    codesToCommands.put(58, ")");
+    commandsToCodes.put(")", 58);	
 //    System.err.println(codesToCommands);
 //    System.exit(1);
   }
