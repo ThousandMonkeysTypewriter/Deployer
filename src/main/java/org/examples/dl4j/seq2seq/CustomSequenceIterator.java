@@ -9,6 +9,10 @@ import org.jol.core.DSL;
 
 import java.util.*;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 /**
  * Created by susaneraly on 3/27/16.
  * This is class to generate a multidataset from the AdditionRNN problem
@@ -41,20 +45,27 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
 
   static DSL dsl;
 
-  public CustomSequenceIterator(int seed, int batchSize, int totalBatches) {
+  public CustomSequenceIterator(int seed, int batchSize, int totalBatches, DSL dsl_) throws ScriptException {
 
     this.seed = seed;
     this.randnumG = new Random(seed);
 
     this.batchSize = batchSize;
-    this.totalBatches = totalBatches;
+    this.totalBatches = totalBatches; 
 
-    dsl = new DSL();
+    dsl = dsl_;
   }
 
   public MultiDataSet generateTest(int testSize) {
     toTestSet = true;
     MultiDataSet testData = next(testSize);
+    reset();
+    return testData;
+  }
+  
+  public MultiDataSet generateTest() {
+    toTestSet = true;
+    MultiDataSet testData = next(1);
     reset();
     return testData;
   }
@@ -65,13 +76,22 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
     INDArray encoderSeq, decoderSeq, outputSeq;
     int currentCount = 0;
     int num1, num2;
+	String strNum1 = "";
+	String strNum2 = "";
     List<INDArray> encoderSeqList = new ArrayList<>();
     List<INDArray> decoderSeqList = new ArrayList<>();
     List<INDArray> outputSeqList = new ArrayList<>();
+    if (sampleSize  > 1)
     while (currentCount < sampleSize-1) {
       while (true) {
+		strNum1 = "";
+		strNum2 = "";
         num1 = randnumG.nextInt((int) Math.pow(10, numDigits));
+		for (String i : String.valueOf(num1).split(""))
+			strNum1 += i+",";  
         num2 = randnumG.nextInt((int) Math.pow(10, numDigits));
+	    for (String i : String.valueOf(num2).split(""))
+			strNum2 += i+",";
         String forSum = String.valueOf(num1) + "#" + String.valueOf(num2);
         if (seenSequences.add(forSum)) {
           break;
@@ -80,7 +100,8 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
       String[] encoderInput = prepToString(num1, num2);
       encoderSeqList.add(mapToOneHot(encoderInput, 14));
 
-      String[] decoderInput = prepToString(num1 + num2, true);
+//      String[] decoderInput = prepToString(num1 + num2, true);
+	  String[] decoderInput = prepToString("56,"+strNum1+""+strNum2+"58,57", true);
       if (toTestSet) {
         //wipe out everything after "go"; not necessary since we do not use these at test time but here for clarity
         int i = 1;
@@ -90,7 +111,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
         }
       }
       decoderSeqList.add(mapToOneHot(decoderInput, SEQ_VECTOR_DIM));
-      String[] decoderOutput = prepToString(num1 + num2, false);
+      String[] decoderOutput = prepToString("56,"+strNum1+""+strNum2+"58,57", false);
       outputSeqList.add(mapToOneHot(decoderOutput, SEQ_VECTOR_DIM));
       currentCount++;
     }
@@ -98,7 +119,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
     String[] encoderInput = prepToString(7, 8);
     encoderSeqList.add(mapToOneHot(encoderInput, 14));
 
-    String[] decoderInput = prepToString("56,7,4,53,53,14,10,52,8,19,19,24,58,57", true);
+    String[] decoderInput = prepToString("56,7,8,58,57", false);
   //  String[] decoderInput = prepToString("1,1,4,1,4,4,4", true);
     if (toTestSet) {
       //wipe out everything after "go"; not necessary since we do not use these at test time but here for clarity
@@ -109,7 +130,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
       }
     }
     decoderSeqList.add(mapToOneHot(decoderInput, SEQ_VECTOR_DIM));
-    String[] decoderOutput = prepToString("56,7,4,53,53,14,10,52,8,19,19,24,58,57", false);
+    String[] decoderOutput = prepToString("56,7,8,58,57", false);
 //    String[] decoderOutput = prepToString("1,1,4,1,4,4,4", true);
     outputSeqList.add(mapToOneHot(decoderOutput, SEQ_VECTOR_DIM)); 
 
@@ -283,7 +304,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
 
     INDArray ret = Nd4j.zeros(1, numInputs, toEncode.length);
     for (int i = 0; i < toEncode.length; i++) {
-//      System.err.println(dsl.getCode(toEncode[i])+" - "+toEncode[i]);
+ //     System.err.println(dsl.getCode(toEncode[i])+" - "+toEncode[i]);
       ret.putScalar(0, dsl.getCode(toEncode[i]), i, 1);
     }
 

@@ -12,13 +12,13 @@ import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
+import org.jol.core.DSL;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.buffer.DataBuffer;
 import org.nd4j.linalg.api.buffer.util.DataTypeUtil;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.MultiDataSet;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
-
 import org.deeplearning4j.util.ModelSerializer;
 
 
@@ -73,7 +73,7 @@ public class AdditionRNN {
     //Tweak these to tune the dataset size = batchSize * totalBatches
     public static int batchSize = 10;
     public static int totalBatches = 500;
-    public static int nEpochs = 10;
+    public static int nEpochs = 3;
     public static int nIterations = 1;
 
     //Tweak the number of hidden nodes
@@ -82,14 +82,18 @@ public class AdditionRNN {
     //This is the size of the one hot vector
     public static final int FEATURE_VEC_SIZE = 59;
 	public static final int inputsNum = 14;
+	
+	static DSL dsl;
 
     public static void main(String[] args) throws Exception {
+		
+		dsl = new DSL(); 
 
         //DataType is set to double for higher precision
         DataTypeUtil.setDTypeForContext(DataBuffer.Type.DOUBLE);
 
         //This is a custom iterator that returns MultiDataSets on each call of next - More details in comments in the class
-        CustomSequenceIterator iterator = new CustomSequenceIterator(seed, batchSize, totalBatches);
+        CustomSequenceIterator iterator = new CustomSequenceIterator(seed, batchSize, totalBatches, dsl);
 
         ComputationGraphConfiguration configuration = new NeuralNetConfiguration.Builder()
                 .weightInit(WeightInit.XAVIER)
@@ -121,9 +125,6 @@ public class AdditionRNN {
         net.init();
 //        net.setListeners(new ScoreIterationListener(1));
 		
-	//	ModelSerializer.writeModel(net, "/root/JOL/src/main/resources/rnn/model.zip", true);
-	//	net =  ModelSerializer.restoreComputationGraph("/root/JOL/src/main/resources/rnn/model.zip");
-
         //Train model:
         int iEpoch = 0;
         int testSize = 100;
@@ -142,8 +143,39 @@ public class AdditionRNN {
             predictor.output(testData,true);*/
             System.out.println("\n* = * = * = * = * = * = * = * = * = ** EPOCH " + iEpoch + " COMPLETE ** = * = * = * = * = * = * = * = * = * = * = * = * = * =");
             iEpoch++;
+            ModelSerializer.writeModel(net, "/root/JOL/src/main/resources/rnn/model.zip", true);
         }
 
+        ComputationGraph net1 = ModelSerializer.restoreComputationGraph("/root/JOL/src/main/resources/rnn/model.zip");
+        net1.fit(iterator);
+        MultiDataSet testData1 = iterator.generateTest(10);
+        
+        INDArray predictions = predictor.output(testData1);
+		encode_decode_eval(predictions,testData1.getFeatures()[0],testData1.getLabels()[0]);
+        
+        String [] predictionS = CustomSequenceIterator.oneHotDecode(predictions);
+		for (String p : predictionS) {
+			if (!p.contains("End"))
+				dsl.act(p);
+			else
+				System.err.println("EE");
+		}
+        
+        /*
+        ComputationGraph net1 = ModelSerializer.restoreComputationGraph("/root/JOL/src/main/resources/rnn/model.zip");
+        MultiDataSet testData1 = iterator.generateTest(10);
+        net1.fit(iterator);
+        System.err.println("!"+testData1);
+//        predictor.output(testData);
+        INDArray decoderInputTemplate = testData1.getFeatures()[1].dup();
+        INDArray ret = net1.output(false,testData1.getFeatures()[0],decoderInputTemplate)[0];
+        
+        encode_decode_eval(ret,testData1.getFeatures()[0],testData1.getLabels()[0]);
+        
+        System.out.println("\tEncoder input and Decoder input:");
+        System.out.println(CustomSequenceIterator.mapToString(testData1.getFeatures()[0],decoderInputTemplate, "="));
+        System.out.println("\tDecoder output:");
+        System.out.println("\t"+String.join("\n\t",CustomSequenceIterator.oneHotDecode(ret)));*/
     }
 
     private static void encode_decode_eval(INDArray predictions, INDArray questions, INDArray answers) {

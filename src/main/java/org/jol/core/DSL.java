@@ -3,9 +3,14 @@ package org.jol.core;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 public class DSL {
   private static final Map<Integer, String> codesToCommands = new HashMap<Integer, String>();
   private static final Map<String, Integer> commandsToCodes = new HashMap<String, Integer>();
+  private ScriptEngine engine;
 
   public DSL() {
     
@@ -46,16 +51,19 @@ public class DSL {
     codesToCommands.put(55, "N");
     commandsToCodes.put("N", 55);
 
-    codesToCommands.put(56, "println(");
-    commandsToCodes.put("println(", 56);	
+    codesToCommands.put(56, "print('");
+    commandsToCodes.put("print('", 56);	
 
     codesToCommands.put(57, ";");
     commandsToCodes.put(";", 57);	
 
-    codesToCommands.put(58, ")");
-    commandsToCodes.put(")", 58);	
-//    System.err.println(codesToCommands);
-//    System.exit(1);
+    codesToCommands.put(58, "')");
+    commandsToCodes.put("')", 58);	
+
+    // create a script engine manager
+    ScriptEngineManager factory = new ScriptEngineManager();
+    // create a JavaScript engine
+    engine = factory.getEngineByName("JavaScript");
   }
   
   public Integer getCode(String command) {
@@ -64,5 +72,10 @@ public class DSL {
   
   public String getCommand(int code) {
     return codesToCommands.get(code);
+  }
+  
+  public void act(String comm) throws ScriptException {
+    // evaluate JavaScript code from String
+    engine.eval(comm);
   }
 }
