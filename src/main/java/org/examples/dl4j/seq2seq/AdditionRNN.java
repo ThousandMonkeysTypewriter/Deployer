@@ -66,7 +66,6 @@ public class AdditionRNN {
         To try out addition for numbers with different number of digits simply change "NUM_DIGITS"
      */
 
-    public static final int NUM_DIGITS =2;
     //Random number generator seed, for reproducability
     public static final int seed = 1234;
 
@@ -194,10 +193,8 @@ public class AdditionRNN {
                 correct++;
             }
         }
-        double randomAcc = Math.pow(10,-1*(NUM_DIGITS+1)) * 100;
         System.out.println("WRONG: "+wrong);
         System.out.println("CORRECT: "+correct);
-        System.out.println("Note randomly guessing digits in succession gives lower than a accuracy of:"+randomAcc+"%");
         System.out.println("The digits along with the spaces have to be predicted\n");
     }
 

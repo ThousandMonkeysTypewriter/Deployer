@@ -35,7 +35,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
   private final int batchSize;
   private final int totalBatches;
 
-  private static final int numDigits = AdditionRNN.NUM_DIGITS;
+  private static final int numDigits = 2;
   public static final int SEQ_VECTOR_DIM = AdditionRNN.FEATURE_VEC_SIZE;
   public static final int OUTPUT_LEN = 60;
 
@@ -81,9 +81,8 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
     List<INDArray> encoderSeqList = new ArrayList<>();
     List<INDArray> decoderSeqList = new ArrayList<>();
     List<INDArray> outputSeqList = new ArrayList<>();
-    if (sampleSize  > 1)
-    while (currentCount < sampleSize-1) {
-      while (true) {
+    while (currentCount < sampleSize) {
+		
 		strNum1 = "";
 		strNum2 = "";
         num1 = randnumG.nextInt((int) Math.pow(10, numDigits));
@@ -92,11 +91,7 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
         num2 = randnumG.nextInt((int) Math.pow(10, numDigits));
 	    for (String i : String.valueOf(num2).split(""))
 			strNum2 += i+",";
-        String forSum = String.valueOf(num1) + "#" + String.valueOf(num2);
-        if (seenSequences.add(forSum)) {
-          break;
-        }
-      }
+ 
       String[] encoderInput = prepToString(num1, num2);
       encoderSeqList.add(mapToOneHot(encoderInput, 14));
 
@@ -115,31 +110,13 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
       outputSeqList.add(mapToOneHot(decoderOutput, SEQ_VECTOR_DIM));
       currentCount++;
     }
-    
-    String[] encoderInput = prepToString(7, 8);
-    encoderSeqList.add(mapToOneHot(encoderInput, 14));
-
-    String[] decoderInput = prepToString("56,7,8,58,57", false);
-  //  String[] decoderInput = prepToString("1,1,4,1,4,4,4", true);
-    if (toTestSet) {
-      //wipe out everything after "go"; not necessary since we do not use these at test time but here for clarity
-      int i = 1;
-      while (i < decoderInput.length) {
-        decoderInput[i] = " ";
-        i++;
-      }
-    }
-    decoderSeqList.add(mapToOneHot(decoderInput, SEQ_VECTOR_DIM));
-    String[] decoderOutput = prepToString("56,7,8,58,57", false);
-//    String[] decoderOutput = prepToString("1,1,4,1,4,4,4", true);
-    outputSeqList.add(mapToOneHot(decoderOutput, SEQ_VECTOR_DIM)); 
 
     encoderSeq = Nd4j.vstack(encoderSeqList);
     decoderSeq = Nd4j.vstack(decoderSeqList);
     outputSeq = Nd4j.vstack(outputSeqList);
 
     INDArray[] inputs = new INDArray[]{encoderSeq, decoderSeq};
-    INDArray[] inputMasks = new INDArray[]{Nd4j.ones(sampleSize, numDigits * 2 + 1), Nd4j.ones(sampleSize, numDigits + 1 + 1)};
+    INDArray[] inputMasks = new INDArray[]{Nd4j.ones(sampleSize, 8), Nd4j.ones(sampleSize, numDigits + 1 + 1)};
     INDArray[] labels = new INDArray[]{outputSeq};
     INDArray[] labelMasks = new INDArray[]{Nd4j.ones(sampleSize, OUTPUT_LEN + 1 + 1)};
     currentBatch++;
@@ -195,12 +172,17 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
     //      String[] encoded = new String[numDigits * 2 + 1];
     String num1S = "";
     String num2S = "";
+	String num3S = "";
     
     for (String i : String.valueOf(num1).split(""))
       num1S += dsl.getCommand(Integer.parseInt(i));  
     
     for (String i : String.valueOf(num2).split(""))
       num2S += dsl.getCommand(Integer.parseInt(i));
+  
+	if (num2S.contains("A"))
+      for (String i : String.valueOf(num2).split(""))
+        num3S += dsl.getCommand(Integer.parseInt(i));
     //padding
     while (num1S.length() < numDigits) {
       num1S = " " + num1S;
@@ -208,10 +190,12 @@ public class CustomSequenceIterator implements MultiDataSetIterator {
     while (num2S.length() < numDigits) {
       num2S = " " + num2S;
     }
+    while (num3S.length() < numDigits) {
+      num3S = " " + num3S;
+    }
 
-    String sumString = num1S + "#" + num2S;
+    String sumString = num1S + " " + num2S + " " + num3S;
 
-//    System.err.println(sumString);
     //        for (int i = 0; i < encoded.length; i++) {
     //            encoded[(encoded.length - 1) - i] = Character.toString(sumString.charAt(i));
     //        }
