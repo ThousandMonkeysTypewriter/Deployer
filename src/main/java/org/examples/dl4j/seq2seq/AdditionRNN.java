@@ -146,19 +146,17 @@ public class AdditionRNN {
             ModelSerializer.writeModel(net, "/root/JOL/src/main/resources/rnn/model.zip", true);
         }
 
-        ComputationGraph net1 = ModelSerializer.restoreComputationGraph("/root/JOL/src/main/resources/rnn/model.zip");
+        ComputationGraph net1 = ModelSerializer.restoreComputationGraph("/root/JOL/src/main/resources/rnn/model.zip", false);
+        Seq2SeqPredicter predictor1 = new Seq2SeqPredicter(net1);
         net1.fit(iterator);
         MultiDataSet testData1 = iterator.generateTest(10);
         
-        INDArray predictions = predictor.output(testData1);
+        INDArray predictions = predictor1.output(testData1, false);
 		encode_decode_eval(predictions,testData1.getFeatures()[0],testData1.getLabels()[0]);
         
         String [] predictionS = CustomSequenceIterator.oneHotDecode(predictions);
 		for (String p : predictionS) {
-			if (!p.contains("End"))
-				dsl.act(p);
-			else
-				System.err.println("EE");
+		  dsl.act(p.trim().replace("End", ""));
 		}
         
         /*
