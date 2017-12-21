@@ -39,7 +39,7 @@ public class Bicycle {
        double sum = 0.0;
        for (int i = 0; i < values.length; i++)
           sum += values[i];
-       System.out.println("Average: " + (sum / values.length));
+       return sum / values.length;
     }
         
 }
