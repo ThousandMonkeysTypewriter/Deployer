@@ -72,7 +72,7 @@ public class AdditionRNN {
     //Tweak these to tune the dataset size = batchSize * totalBatches
     public static int batchSize = 10;
     public static int totalBatches = 500;
-    public static int nEpochs = 3;
+    public static int nEpochs = 30;
     public static int nIterations = 1;
 
     //Tweak the number of hidden nodes
@@ -115,7 +115,7 @@ public class AdditionRNN {
                 .addVertex("duplicateTimeStep", new DuplicateToTimeSeriesVertex("sumOut"), "lastTimeStep")
                 //The inputs to the decoder will have size = size of output of last timestep of encoder (numHiddenNodes) + size of the other input to the comp graph,sumOut (feature vector size)
                 .addLayer("decoder", new GravesLSTM.Builder().nIn(FEATURE_VEC_SIZE+numHiddenNodes).nOut(numHiddenNodes).activation(Activation.SOFTSIGN).build(), "sumOut","duplicateTimeStep")
-                .addLayer("output", new RnnOutputLayer.Builder().nIn(numHiddenNodes).nOut(FEATURE_VEC_SIZE).activation(Activation.SOFTMAX).lossFunction(LossFunctions.LossFunction.MCXENT).build(), "decoder")
+                .addLayer("output", new RnnOutputLayer.Builder(new CustomLoss()).nIn(numHiddenNodes).nOut(FEATURE_VEC_SIZE).activation(Activation.SOFTMAX).build(), "decoder")
                 .setOutputs("output")
                 .pretrain(false).backprop(true)
                 .build();
@@ -126,7 +126,7 @@ public class AdditionRNN {
 		
         //Train model:
         int iEpoch = 0;
-        int testSize = 100;
+        int testSize = 5;
         Seq2SeqPredicter predictor = new Seq2SeqPredicter(net);
         while (iEpoch < nEpochs) {
             net.fit(iterator);
@@ -134,6 +134,7 @@ public class AdditionRNN {
             MultiDataSet testData = iterator.generateTest(testSize);
             INDArray predictions = predictor.output(testData);
             encode_decode_eval(predictions,testData.getFeatures()[0],testData.getLabels()[0]);
+            System.exit(1);
             /*
             (Comment/Uncomment) the following block of code to (see/or not see) how the output of the decoder is fed back into the input during test time
             
@@ -148,7 +149,7 @@ public class AdditionRNN {
         ComputationGraph net1 = ModelSerializer.restoreComputationGraph("/root/JOL/src/main/resources/rnn/model.zip", false);
         Seq2SeqPredicter predictor1 = new Seq2SeqPredicter(net1);
         net1.fit(iterator);
-        MultiDataSet testData1 = iterator.generateTest(10);
+        MultiDataSet testData1 = iterator.generateTest(3);
         
         INDArray predictions = predictor1.output(testData1, false);
 		encode_decode_eval(predictions,testData1.getFeatures()[0],testData1.getLabels()[0]);
