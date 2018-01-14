@@ -120,6 +120,8 @@ Every example, except ImagesClassifier comes with the already trained model.
 
 [Using Artificial Intelligence to Write Self-Modifying/Improving Programs](http://www.primaryobjects.com/2013/01/27/using-artificial-intelligence-to-write-self-modifying-improving-programs/)
 
+[Neural network dataset](http://dawn.cs.stanford.edu/2018/01/11/index-baselines/)
+
 ### Contacts:
 
 nayname@gmail.com
